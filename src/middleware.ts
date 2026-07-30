@@ -4,5 +4,6 @@ import { authConfig } from "@/auth.config";
 export default NextAuth(authConfig).auth;
 
 export const config = {
+  runtime: "nodejs",
   matcher: ["/dashboard/:path*", "/login"],
 };
