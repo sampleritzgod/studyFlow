@@ -1,17 +1,14 @@
 import { config } from "dotenv";
-import { defineConfig } from "prisma/config";
+import { defineConfig, env } from "prisma/config";
 
-// Single local secrets file (Next.js + Prisma CLI).
+// Secrets live in `.env.local` (not `.env`). Load that before Prisma config.
 config({ path: ".env.local" });
 
-// Prisma CLI (migrate, introspect, studio) must use Neon's direct (non-pooled) URL.
-// Runtime queries use DATABASE_URL (pooled) via @prisma/adapter-pg in src/lib/prisma.ts.
 export default defineConfig({
   schema: "prisma/schema.prisma",
-  migrations: {
-    path: "prisma/migrations",
-  },
+  migrations: { path: "prisma/migrations" },
   datasource: {
-    url: process.env["DIRECT_URL"],
+    // Migrations need Neon's direct (non-pooled) URL.
+    url: env("DIRECT_URL"),
   },
 });

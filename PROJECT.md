@@ -50,13 +50,19 @@ Build **StudyFlow** as a clean, fast study/learning product:
 
 ---
 
-## Not done yet
+## Roadmap (phases 0–8)
 
-| Area | Plan | Status |
-|------|------|--------|
-| App models | Courses, tracks, progress, users | Not started |
-| UI polish | Landing / product UI from design principles | Not started |
-| Deploy | Amplify Hosting, CloudFront + S3, CloudWatch, SES; Neon production env vars on Amplify | Not started |
+| Phase | Scope | Status |
+|------|--------|--------|
+| 0 | Foundation (auth done; finish Neon + Prisma wiring) | **In progress** — auth done; Neon/Prisma wiring in progress |
+| 1 | Deploy skeleton — bare app live on Amplify + real Neon DB, before any features | Not started |
+| 2 | Notes/PKM — CRUD, bidirectional links, graph view | Not started |
+| 3 | Deep work tracker — Pomodoro, time-blocking, focus scorecard | Not started |
+| 4 | Monetization scaffolding — Stripe, pricing, plan gating | Not started |
+| 5 | Career portfolio — milestones, checklists | Not started |
+| 6 | Personal outreach CRM — relationship tracker + AI-drafted emails | Not started |
+| 7 | Production hardening — Secrets Manager, CloudWatch, SES, rate limiting, backups, privacy policy/ToS, CI with tests | Not started |
+| 8 | Peer-matching — only once there's a real user base to match against | Not started |
 
 ---
 
@@ -98,4 +104,4 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Next step
 
-**App models** (or UI / Deploy) — after explicit approval.
+Finish **phase 0** (Neon + Prisma wiring), then phase 1 only after that is done.

@@ -7,8 +7,7 @@ datasource db {
   provider = "postgresql"
 }
 
-// No application models in this step (courses, tracks, progress, users, etc.).
-// Schema models are a separate future step.
-//
-// Prisma 7: connection URLs live in prisma.config.ts / .env.local — not here.
-// Runtime uses DATABASE_URL (Neon pooled); CLI/migrations use DIRECT_URL.
+// No models yet — Phase 2 (Notes/PKM).
+// Prisma 7: URLs live in prisma.config.ts / .env.local (not here).
+// Runtime: DATABASE_URL (pooled) via src/lib/prisma.ts
+// CLI/migrations: DIRECT_URL via prisma.config.ts

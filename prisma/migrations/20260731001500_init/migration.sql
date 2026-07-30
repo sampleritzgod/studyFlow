@@ -1,0 +1,2 @@
+-- Phase 0 baseline: empty schema (no models yet).
+-- Proves Neon connectivity and initializes Prisma migration history.
