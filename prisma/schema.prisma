@@ -1,0 +1,14 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// No application models in this step (courses, tracks, progress, users, etc.).
+// Schema models are a separate future step.
+//
+// Prisma 7: connection URLs live in prisma.config.ts / .env.local — not here.
+// Runtime uses DATABASE_URL (Neon pooled); CLI/migrations use DIRECT_URL.

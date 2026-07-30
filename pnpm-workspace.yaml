@@ -1,0 +1,6 @@
+# pnpm project settings (pnpm 11+). Not a multi-package workspace.
+allowBuilds:
+  '@prisma/engines': true
+  prisma: true
+  sharp: true
+  unrs-resolver: true

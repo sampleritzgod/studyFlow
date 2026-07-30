@@ -1,0 +1,27 @@
+.next
+node_modules
+out
+coverage
+dist
+build
+
+# env — only `.env.local` is used locally; `.env.example` is the template
+.env
+.env.local
+.env.*.local
+
+# logs / OS
+*.log
+.DS_Store
+Thumbs.db
+
+# editors
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# typescript
+*.tsbuildinfo
+
+# prisma
+src/generated/prisma
