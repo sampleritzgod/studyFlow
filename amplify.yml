@@ -7,7 +7,31 @@ frontend:
         - pnpm install --frozen-lockfile
     build:
       commands:
+        # Amplify console env vars → .env.production so Next.js SSR can read them at runtime
+        - |
+          set -e
+          : > .env.production
+          for key in \
+            NEXT_PUBLIC_APP_NAME \
+            NEXT_PUBLIC_APP_URL \
+            AUTH_SECRET \
+            AUTH_URL \
+            AUTH_COGNITO_ID \
+            AUTH_COGNITO_SECRET \
+            AUTH_COGNITO_ISSUER \
+            AUTH_COGNITO_DOMAIN \
+            DATABASE_URL \
+            DIRECT_URL
+          do
+            eval "val=\${$key-}"
+            if [ -n "$val" ]; then
+              printf '%s=%s\n' "$key" "$val" >> .env.production
+            else
+              echo "WARNING: missing env var $key"
+            fi
+          done
         - pnpm run build
+        - cp .env.production .next/.env.production 2>/dev/null || true
   artifacts:
     baseDirectory: .next
     files:
