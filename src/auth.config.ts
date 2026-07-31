@@ -13,7 +13,8 @@ export const authConfig = {
       issuer: process.env.AUTH_COGNITO_ISSUER!,
       authorization: {
         params: {
-          scope: "openid email profile phone",
+          // App client currently allows openid + email only (profile/phone → invalid_scope).
+          scope: "openid email",
         },
       },
     }),
