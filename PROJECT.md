@@ -20,7 +20,7 @@ Build **StudyFlow** as a clean, fast study/learning product:
 ### 1. Project initialization
 
 - Next.js 15 (App Router) + React 19 + TypeScript
-- pnpm, Tailwind CSS v4
+- npm, Tailwind CSS v4
 - ESLint + Prettier
 - Typed env via `src/config/env.ts`
 - Scripts: `dev`, `build`, `start`, `lint`, `format`, `typecheck`
@@ -76,10 +76,10 @@ Build **StudyFlow** as a clean, fast study/learning product:
 ## Local run
 
 ```bash
-pnpm install
+npm install
 # Copy .env.example → .env.local and fill Clerk + Neon development-branch values
-pnpm db:generate
-pnpm dev
+npm run db:generate
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) → **Sign in** uses Clerk.

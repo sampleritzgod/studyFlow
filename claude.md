@@ -38,7 +38,7 @@ SaaS others use later, but built and shipped one working piece at a time.
   reasonable to build one.
 
 ## Stack — do not change without asking
-- Next.js 15 (App Router) + React 19 + TypeScript, pnpm, Tailwind v4
+- Next.js 15 (App Router) + React 19 + TypeScript, npm, Tailwind v4
 - Auth: Clerk (@clerk/nextjs)
 - DB: Neon (managed Postgres), Prisma 7 with @prisma/adapter-pg
 - Deploy target: Vercel
