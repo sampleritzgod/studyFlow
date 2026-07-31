@@ -2,7 +2,7 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@/generated/prisma/client";
 import { env } from "@/config/env";
 
-// Neon production-branch URLs are set as Amplify env vars in the Deploy step.
+// Neon production-branch URLs are set as Vercel env vars in the Deploy step.
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;

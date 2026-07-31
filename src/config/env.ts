@@ -26,6 +26,11 @@ function requiredUrl(name: string, value: string | undefined): string {
 export const env = {
   appName: required("NEXT_PUBLIC_APP_NAME", process.env.NEXT_PUBLIC_APP_NAME),
   appUrl: requiredUrl("NEXT_PUBLIC_APP_URL", process.env.NEXT_PUBLIC_APP_URL),
+  clerkPublishableKey: required(
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+    process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+  ),
+  clerkSecretKey: required("CLERK_SECRET_KEY", process.env.CLERK_SECRET_KEY),
   get databaseUrl() {
     return requiredUrl("DATABASE_URL", process.env.DATABASE_URL);
   },

@@ -1,6 +1,6 @@
 # StudyFlow
 
-Minimal, modern learning platform. Production-first on AWS (auth/hosting) + Neon (database).
+Minimal, modern learning platform. Auth via Clerk; hosting on Vercel; database on Neon.
 
 ---
 
@@ -11,7 +11,7 @@ Build **StudyFlow** as a clean, fast study/learning product:
 - UI quality comparable to strong modern learning apps (minimal, clear hierarchy, generous space)
 - Follow design **principles**, do not copy any specific brand or layout
 - Stable stack only, scalable structure, no over-engineering
-- Auth/hosting on **AWS**; database on **Neon** (managed Postgres)
+- Auth via **Clerk**; hosting on **Vercel**; database on **Neon** (managed Postgres)
 
 ---
 
@@ -28,16 +28,11 @@ Build **StudyFlow** as a clean, fast study/learning product:
 
 ### 2. Authentication
 
-- Auth.js (`next-auth` v5) + **Amazon Cognito**
-- JWT sessions (no database adapter yet)
-- Cognito Hosted UI: sign-in / sign-out
-- Protected route: `/dashboard`
-- Pages: `/`, `/login`, `/dashboard`
-- Cognito app client configured with:
-  - Callback: `http://localhost:3000/api/auth/callback/cognito`
-  - Sign-out: `http://localhost:3000`
-  - Scopes: `openid email profile phone`
-- **Status: working locally**
+- **Clerk** (`@clerk/nextjs`) — sign-in / sign-up / session
+- Middleware protects `/dashboard(.*)` via `auth.protect()`
+- Defense-in-depth: dashboard page also checks `auth()` server-side
+- Pages: `/`, `/sign-in`, `/sign-up`, `/dashboard`
+- **Status: swapped from Cognito/Auth.js — configure Clerk keys in `.env.local`**
 
 ### 3. Database setup (infrastructure)
 
@@ -54,8 +49,8 @@ Build **StudyFlow** as a clean, fast study/learning product:
 
 | Phase | Scope | Status |
 |------|--------|--------|
-| 0 | Foundation (auth done; finish Neon + Prisma wiring) | **In progress** — auth done; Neon/Prisma wiring in progress |
-| 1 | Deploy skeleton — bare app live on Amplify + real Neon DB, before any features | Not started |
+| 0 | Foundation (auth done; finish Neon + Prisma wiring) | **In progress** — auth on Clerk; Neon/Prisma wiring in progress |
+| 1 | Deploy skeleton — bare app live on Vercel + real Neon DB, before any features | Not started |
 | 2 | Notes/PKM — CRUD, bidirectional links, graph view | Not started |
 | 3 | Deep work tracker — Pomodoro, time-blocking, focus scorecard | Not started |
 | 4 | Monetization scaffolding — Stripe, pricing, plan gating | Not started |
@@ -70,11 +65,11 @@ Build **StudyFlow** as a clean, fast study/learning product:
 
 | Concern | Choice | Why (one line) |
 |---------|--------|----------------|
-| App | Next.js 15 + TypeScript | Stable fullstack web app, fits AWS hosting |
-| Auth | Amazon Cognito + Auth.js | Managed AWS identity with JWT and Hosted UI |
-| Database | Neon (managed Postgres) | Simple managed Postgres; Cognito already covers auth |
+| App | Next.js 15 + TypeScript | Stable fullstack web app |
+| Auth | Clerk | Hosted auth UI + Next.js middleware helpers |
+| Database | Neon (managed Postgres) | Simple managed Postgres |
 | ORM | Prisma 7 + `@prisma/adapter-pg` | Client singleton in `src/lib/prisma.ts` |
-| Deploy (planned) | Amplify + supporting AWS services | Straightforward Next.js hosting on AWS |
+| Deploy (planned) | Vercel | Next.js hosting; Amplify removed |
 
 ---
 
@@ -82,12 +77,12 @@ Build **StudyFlow** as a clean, fast study/learning product:
 
 ```bash
 pnpm install
-# Copy .env.example → .env.local and fill Cognito + Neon development-branch values
+# Copy .env.example → .env.local and fill Clerk + Neon development-branch values
 pnpm db:generate
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) → **Sign in** uses Cognito.
+Open [http://localhost:3000](http://localhost:3000) → **Sign in** uses Clerk.
 
 Secrets live only in `.env.local` (gitignored). `.env.example` is the committed template.
 
@@ -99,6 +94,12 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 - Do not implement future features early
 - Ask when requirements are unclear
 - Prefer simple, production-ready choices
+
+---
+
+## Changelog
+
+- 2026-07-31: Replaced Cognito/Auth.js with Clerk; removed Amplify config; deploy target is Vercel.
 
 ---
 

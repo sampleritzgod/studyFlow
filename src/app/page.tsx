@@ -1,28 +1,31 @@
 import Link from "next/link";
-import { auth } from "@/auth";
-import { signOutFromCognito } from "@/lib/cognito-logout";
+import { SignOutButton } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 export default async function HomePage() {
-  const session = await auth();
+  const { userId } = await auth();
+  const user = userId ? await currentUser() : null;
+  const label =
+    user?.primaryEmailAddress?.emailAddress ?? user?.fullName ?? "user";
 
   return (
     <main>
       <h1>StudyFlow</h1>
       <p>Project initialized.</p>
 
-      {session?.user ? (
+      {userId ? (
         <div>
-          <p>Signed in as {session.user.email ?? session.user.name ?? "user"}.</p>
+          <p>Signed in as {label}.</p>
           <p>
             <Link href="/dashboard">Go to dashboard</Link>
           </p>
-          <form action={signOutFromCognito}>
-            <button type="submit">Sign out</button>
-          </form>
+          <SignOutButton>
+            <button type="button">Sign out</button>
+          </SignOutButton>
         </div>
       ) : (
         <p>
-          <Link href="/login">Sign in</Link>
+          <Link href="/sign-in">Sign in</Link>
         </p>
       )}
     </main>

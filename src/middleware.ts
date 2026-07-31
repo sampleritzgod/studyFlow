@@ -1,9 +1,11 @@
-import NextAuth from "next-auth";
-import { authConfig } from "@/auth.config";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-export default NextAuth(authConfig).auth;
+const isProtectedRoute = createRouteMatcher(["/dashboard(.*)"]);
+
+export default clerkMiddleware(async (auth, req) => {
+  if (isProtectedRoute(req)) await auth.protect();
+});
 
 export const config = {
-  runtime: "nodejs",
-  matcher: ["/dashboard/:path*", "/login"],
+  matcher: ["/((?!_next|.*\\..*).*)", "/(api|trpc)(.*)"],
 };

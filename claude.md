@@ -39,13 +39,13 @@ SaaS others use later, but built and shipped one working piece at a time.
 
 ## Stack — do not change without asking
 - Next.js 15 (App Router) + React 19 + TypeScript, pnpm, Tailwind v4
-- Auth: Cognito + Auth.js (next-auth v5), JWT sessions
+- Auth: Clerk (@clerk/nextjs)
 - DB: Neon (managed Postgres), Prisma 7 with @prisma/adapter-pg
-- Deploy target: AWS Amplify Hosting
+- Deploy target: Vercel
 
 ## Roadmap — current phase governs scope
 0. Foundation (auth done; finish Neon + Prisma wiring)
-1. Deploy skeleton — bare app live on Amplify + real Neon DB, before any features
+1. Deploy skeleton — bare app live on Vercel + real Neon DB, before any features
 2. Notes/PKM — CRUD, bidirectional links, graph view
 3. Deep work tracker — Pomodoro, time-blocking, focus scorecard
 4. Monetization scaffolding — Stripe, pricing, plan gating

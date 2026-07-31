@@ -1,21 +1,25 @@
+import { SignOutButton } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { auth } from "@/auth";
-import { signOutFromCognito } from "@/lib/cognito-logout";
 
 export default async function DashboardPage() {
-  const session = await auth();
+  const { userId } = await auth();
 
-  if (!session?.user) {
-    redirect("/login");
+  if (!userId) {
+    redirect("/sign-in");
   }
+
+  const user = await currentUser();
+  const label =
+    user?.primaryEmailAddress?.emailAddress ?? user?.fullName ?? "user";
 
   return (
     <main>
       <h1>Dashboard</h1>
-      <p>Signed in as {session.user.email ?? session.user.name ?? "user"}.</p>
-      <form action={signOutFromCognito}>
-        <button type="submit">Sign out</button>
-      </form>
+      <p>Signed in as {label}.</p>
+      <SignOutButton>
+        <button type="button">Sign out</button>
+      </SignOutButton>
     </main>
   );
 }

@@ -24,10 +24,10 @@
     "db:studio": "prisma studio"
   },
   "dependencies": {
+    "@clerk/nextjs": "^7.6.3",
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
     "next": "^15.5.22",
-    "next-auth": "5.0.0-beta.32",
     "pg": "^8.22.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
