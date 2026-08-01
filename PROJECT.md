@@ -39,6 +39,8 @@ Build **StudyFlow** as a clean, fast study/learning product:
 - **Neon** (managed Postgres) — development branch for local, production branch for Deploy
 - Prisma 7 + `@prisma/adapter-pg`
 - `DATABASE_URL` = pooled (runtime); `DIRECT_URL` = direct (migrations / Prisma CLI)
+- Runtime URL handling removes `channel_binding` and normalizes `sslmode=require` to
+  `sslmode=verify-full`
 - No app models yet (schema is generator + datasource only)
 - Scripts: `db:generate`, `db:migrate`, `db:deploy`, `db:push`, `db:studio`
 - No local Docker Postgres; no Aurora/RDS/VPC provisioning
@@ -67,13 +69,19 @@ Current open phase: **0 — Foundation**.
 
 Phase 0 is not complete until the following evidence exists:
 
-- `npm run db:generate` passes
-- `npm run typecheck` passes
-- `npm run lint` passes
-- `npm run build` passes
-- Local `/api/health` returns HTTP 200 with `database.ok: true`
-- A signed-in `/dashboard` shows Auth protected and Database connected
-- Changelog includes the shipped Phase 0 line
+- Done: `npm run db:generate` passes
+- Done: `npm run typecheck` passes
+- Done: `npm run lint` passes
+- Done: `npm run build` passes
+- Done before URL-normalization cleanup: local `/api/health` returned HTTP 200
+  with `database.ok: true`
+- Pending: repeat local `/api/health` after URL-normalization cleanup
+- Pending: a signed-in `/dashboard` shows Auth protected and Database connected
+- Pending: changelog includes the shipped Phase 0 line
+
+Latest command evidence was collected on 2026-08-01. Unsigned `/dashboard`
+redirected to `/sign-in?redirect_url=...`, confirming route protection behavior
+without a browser session.
 
 ---
 
