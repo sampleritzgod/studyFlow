@@ -29,8 +29,8 @@ Build **StudyFlow** as a clean, fast study/learning product:
 ### 2. Authentication
 
 - **Clerk** (`@clerk/nextjs`) — sign-in / sign-up / session
-- Middleware protects `/dashboard(.*)` via `auth.protect()`
-- Defense-in-depth: dashboard page also checks `auth()` server-side
+- Clerk middleware is installed globally
+- Dashboard protects itself server-side with `auth.protect()`
 - Pages: `/`, `/sign-in`, `/sign-up`, `/dashboard`
 - **Status: swapped from Cognito/Auth.js — configure Clerk keys in `.env.local`**
 
@@ -47,9 +47,11 @@ Build **StudyFlow** as a clean, fast study/learning product:
 
 ## Roadmap (phases 0–8)
 
+Current open phase: **0 — Foundation**.
+
 | Phase | Scope | Status |
 |------|--------|--------|
-| 0 | Foundation (auth done; finish Neon + Prisma wiring) | **In progress** — auth on Clerk; Neon/Prisma wiring in progress |
+| 0 | Foundation (auth done; finish Neon + Prisma wiring) | **In progress** — auth on Clerk; Neon/Prisma health check is wired |
 | 1 | Deploy skeleton — bare app live on Vercel + real Neon DB, before any features | Not started |
 | 2 | Notes/PKM — CRUD, bidirectional links, graph view | Not started |
 | 3 | Deep work tracker — Pomodoro, time-blocking, focus scorecard | Not started |
@@ -58,6 +60,20 @@ Build **StudyFlow** as a clean, fast study/learning product:
 | 6 | Personal outreach CRM — relationship tracker + AI-drafted emails | Not started |
 | 7 | Production hardening — Secrets Manager, CloudWatch, SES, rate limiting, backups, privacy policy/ToS, CI with tests | Not started |
 | 8 | Peer-matching — only once there's a real user base to match against | Not started |
+
+---
+
+## Current phase gate
+
+Phase 0 is not complete until the following evidence exists:
+
+- `npm run db:generate` passes
+- `npm run typecheck` passes
+- `npm run lint` passes
+- `npm run build` passes
+- Local `/api/health` returns HTTP 200 with `database.ok: true`
+- A signed-in `/dashboard` shows Auth protected and Database connected
+- Changelog includes the shipped Phase 0 line
 
 ---
 
@@ -99,6 +115,7 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Changelog
 
+- 2026-08-01: Added a phase-0 dashboard foundation check backed by the real Prisma/Neon health query.
 - 2026-07-31: Replaced Cognito/Auth.js with Clerk; removed Amplify config; deploy target is Vercel.
 
 ---

@@ -9,11 +9,17 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 function connectionString() {
+  const url = new URL(env.databaseUrl);
+
   // channel_binding can break some serverless/pg stacks; Neon works without it.
-  return env.databaseUrl
-    .replace(/&?channel_binding=require/gi, "")
-    .replace(/\?&/, "?")
-    .replace(/\?$/, "");
+  url.searchParams.delete("channel_binding");
+
+  // Preserve pg's current strict behavior before sslmode=require changes semantics.
+  if (url.searchParams.get("sslmode")?.toLowerCase() === "require") {
+    url.searchParams.set("sslmode", "verify-full");
+  }
+
+  return url.toString();
 }
 
 function createPrismaClient() {

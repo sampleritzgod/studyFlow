@@ -44,6 +44,9 @@ SaaS others use later, but built and shipped one working piece at a time.
 - Deploy target: Vercel
 
 ## Roadmap — current phase governs scope
+Current open phase: **0 — Foundation**. Do not start Phase 1 until Phase 0 is
+verified with real command output and PROJECT.md is updated.
+
 0. Foundation (auth done; finish Neon + Prisma wiring)
 1. Deploy skeleton — bare app live on Vercel + real Neon DB, before any features
 2. Notes/PKM — CRUD, bidirectional links, graph view
@@ -61,6 +64,29 @@ SaaS others use later, but built and shipped one working piece at a time.
 - Loading / empty / error states designed
 - Checked at mobile width
 - One line added to PROJECT.md's changelog describing what shipped
+
+## Phase gates
+- Phase 0 is done when `npm run db:generate`, `npm run typecheck`,
+  `npm run lint`, and `npm run build` pass; `/api/health` returns 200 with
+  `database.ok: true`; and a signed-in `/dashboard` shows Auth protected and
+  Database connected.
+- Phase 1 is done when the Vercel deployment URL loads, Clerk sign-in/sign-up
+  work on the deployed app, `/dashboard` works after login, and the deployed
+  `/api/health` returns 200 against the production Neon branch.
+- Phase 2 is done when a signed-in user can create, read, update, delete, and
+  link notes with persisted data and designed loading, empty, and error states.
+- Phase 3 is done when a signed-in user can run real focus sessions, see saved
+  history, and review a basic focus scorecard from persisted data.
+- Phase 4 is done when pricing and plan gates exist with Stripe test-mode
+  checkout and webhook verification, without blocking the free Phase 2/3 core.
+- Phase 5 is done when a signed-in user can maintain portfolio milestones and
+  checklists with persisted progress.
+- Phase 6 is done when a signed-in user can track contacts and draft outreach
+  emails for their own saved contacts; peer matching remains out of scope.
+- Phase 7 is done when production safety basics are in place: CI, tests,
+  backups, privacy/terms pages, rate limiting, and deployment observability.
+- Phase 8 is done when there is enough real usage to justify matching and users
+  can opt into peer discovery safely.
 
 ## Session start ritual
 Read this file and PROJECT.md's current phase before doing anything. If the
