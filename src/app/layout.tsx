@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import "./globals.css";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
 import { env } from "@/config/env";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: env.appName,
@@ -16,7 +18,13 @@ export default function RootLayout({
   return (
     <ClerkProvider publishableKey={env.clerkPublishableKey}>
       <html lang="en">
-        <body>{children}</body>
+        <body>
+          <div className="app-frame">
+            <SiteHeader />
+            <div className="app-main">{children}</div>
+            <SiteFooter />
+          </div>
+        </body>
       </html>
     </ClerkProvider>
   );

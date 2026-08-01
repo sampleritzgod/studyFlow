@@ -50,16 +50,6 @@ export default async function FocusPage({ searchParams }: FocusPageProps) {
         title="Deep work"
         titleId="focus-heading"
         description="Run a Pomodoro or a timed block, then review what you actually finished."
-        actions={
-          <>
-            <Button href="/notes" variant="secondary">
-              Notes
-            </Button>
-            <Button href="/dashboard" variant="secondary">
-              Dashboard
-            </Button>
-          </>
-        }
       />
 
       {error ? <StatusMessage tone="error">{error}</StatusMessage> : null}

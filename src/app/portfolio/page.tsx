@@ -33,14 +33,9 @@ export default async function PortfolioPage({ searchParams }: PortfolioPageProps
         titleId="portfolio-heading"
         description="Track milestones and checklist progress toward your career goals."
         actions={
-          <>
-            <Button href="/dashboard" variant="secondary">
-              Dashboard
-            </Button>
-            <Button href="/portfolio/new" variant="primary">
-              New milestone
-            </Button>
-          </>
+          <Button href="/portfolio/new" variant="primary">
+            New milestone
+          </Button>
         }
       />
 

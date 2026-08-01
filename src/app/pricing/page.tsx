@@ -12,27 +12,17 @@ export default async function PricingPage() {
     <main className="site-shell">
       <PageHeader
         eyebrow="Pricing"
-        title="Payments deferred"
+        title="Free while we build"
         titleId="pricing-heading"
-        description="Monetization is on hold. Stripe is not a fit for India right now; Razorpay can be added later if we reopen this phase."
-        actions={
-          <>
-            <Button href="/notes" variant="secondary">
-              Notes
-            </Button>
-            <Button href="/focus" variant="secondary">
-              Focus
-            </Button>
-          </>
-        }
+        description="StudyFlow is free to use. Paid plans are not offered yet."
       />
 
       <EmptyState
-        title="Everything is free for now"
-        description="Notes and Focus stay fully available. No subscription or checkout while Phase 4 is deferred."
+        title="No paid plans right now"
+        description="Notes, Focus, Portfolio, and Outreach are available on every account."
       >
         <Button href={userId ? "/dashboard" : "/sign-up"} variant="primary">
-          {userId ? "Back to dashboard" : "Create account"}
+          {userId ? "Open workspace" : "Create account"}
         </Button>
       </EmptyState>
     </main>

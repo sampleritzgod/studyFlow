@@ -145,7 +145,9 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Next step
 
-No open build phase. Optional later: reopen **Phase 4 with Razorpay**, or **Phase 8 peer-matching** only after real users exist. Meanwhile: push to GitHub so CI runs, and deploy latest `main` to Vercel (run `prisma migrate deploy` on production Neon).
+**UI/UX polish (in progress):** global nav, product hub dashboard, calmer home copy. Payments stay out of production.
+
+Optional later: reopen **Phase 4 with Razorpay**, or **Phase 8 peer-matching** only after real users exist. Meanwhile: push polish to GitHub and redeploy Vercel when ready.
 
 ## Ops notes
 

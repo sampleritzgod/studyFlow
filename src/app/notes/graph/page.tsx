@@ -44,14 +44,9 @@ export default async function NotesGraphPage() {
         titleId="graph-heading"
         description="A simple view of how your notes connect."
         actions={
-          <>
-            <Button href="/notes" variant="secondary">
-              All notes
-            </Button>
-            <Button href="/notes/new" variant="primary">
-              New note
-            </Button>
-          </>
+          <Button href="/notes/new" variant="primary">
+            New note
+          </Button>
         }
       />
 

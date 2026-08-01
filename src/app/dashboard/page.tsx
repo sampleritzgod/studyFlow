@@ -1,84 +1,62 @@
 import Link from "next/link";
-import { SignOutButton } from "@clerk/nextjs";
 import { auth, currentUser } from "@clerk/nextjs/server";
+import { PageHeader } from "@/components/page-header";
 import { checkDatabaseHealth } from "@/lib/health";
 
 export const dynamic = "force-dynamic";
 
+const areas = [
+  {
+    href: "/notes",
+    title: "Notes",
+    body: "Capture ideas and link related thoughts.",
+  },
+  {
+    href: "/focus",
+    title: "Focus",
+    body: "Run Pomodoros and review your scorecard.",
+  },
+  {
+    href: "/portfolio",
+    title: "Portfolio",
+    body: "Track career milestones and checklists.",
+  },
+  {
+    href: "/outreach",
+    title: "Outreach",
+    body: "Keep contacts and draft outreach emails.",
+  },
+] as const;
+
 export default async function DashboardPage() {
-  const { userId } = await auth.protect();
+  await auth.protect();
   const user = await currentUser();
-  const label = user?.primaryEmailAddress?.emailAddress ?? user?.fullName ?? userId;
+  const label = user?.firstName ?? user?.primaryEmailAddress?.emailAddress ?? "there";
   const database = await checkDatabaseHealth();
-  const checkedAt = new Intl.DateTimeFormat("en", {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(new Date(database.checkedAt));
 
   return (
     <main className="site-shell">
-      <section className="dashboard-header" aria-labelledby="dashboard-heading">
-        <div>
-          <p className="eyebrow">StudyFlow dashboard</p>
-          <h1 id="dashboard-heading">Foundation check</h1>
-          <p className="lede">
-            Signed in as {label}. The project is ready for phase 0 verification against the real
-            Neon database.
-          </p>
-        </div>
+      <PageHeader
+        eyebrow="Workspace"
+        title={`Welcome back, ${label}`}
+        titleId="dashboard-heading"
+        description="Pick up where you left off. Your notes, focus sessions, portfolio, and outreach live here."
+      />
 
-        <SignOutButton>
-          <button className="button button-secondary" type="button">
-            Sign out
-          </button>
-        </SignOutButton>
-      </section>
+      {!database.ok ? (
+        <p className="flash flash-error" role="alert">
+          Database needs attention: {database.error}
+        </p>
+      ) : null}
 
-      <section className="dashboard-grid" aria-label="Foundation status">
-        <article className="card">
-          <div className="card-heading">
-            <span
-              className={database.ok ? "status-dot status-dot-ok" : "status-dot status-dot-error"}
-              aria-hidden="true"
-            />
-            <h2>Database</h2>
-          </div>
-          <p className="card-value">{database.ok ? "Connected" : "Needs attention"}</p>
-          <p className="muted">
-            Checked {checkedAt} in {database.latencyMs}ms.
-          </p>
-          {database.ok ? null : (
-            <p className="error-text" role="alert">
-              {database.error}
-            </p>
-          )}
-        </article>
-
-        <article className="card">
-          <div className="card-heading">
-            <span className="status-dot status-dot-ok" aria-hidden="true" />
-            <h2>Authentication</h2>
-          </div>
-          <p className="card-value">Protected</p>
-          <p className="muted">Clerk middleware and server-side auth both protect this route.</p>
-        </article>
-
-        <article className="card">
-          <div className="card-heading">
-            <span className="status-dot status-dot-idle" aria-hidden="true" />
-            <h2>Next step</h2>
-          </div>
-          <p className="card-value">Shipped</p>
-          <p className="muted">Core product is live. Payments deferred; peer matching waits on real users.</p>
-          <div className="action-row">
-            <Link className="button button-primary" href="/notes">
-              Notes
-            </Link>
-            <Link className="button button-secondary" href="/privacy">
-              Privacy
-            </Link>
-          </div>
-        </article>
+      <section className="hub-grid" aria-label="StudyFlow areas">
+        {areas.map((area) => (
+          <Link key={area.href} className="hub-card" href={area.href}>
+            <h2>{area.title}</h2>
+            <p className="muted">{area.body}</p>
+            <span className="hub-card-cta">Open</span>
+          </Link>
+        ))}
       </section>
     </main>
   );

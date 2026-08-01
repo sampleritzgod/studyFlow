@@ -38,9 +38,6 @@ export default async function NotesPage({ searchParams }: NotesPageProps) {
         description="Capture ideas, then link them so related thoughts stay connected."
         actions={
           <>
-            <Button href="/dashboard" variant="secondary">
-              Dashboard
-            </Button>
             <Button href="/notes/graph" variant="secondary">
               Graph
             </Button>

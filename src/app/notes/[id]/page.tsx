@@ -64,14 +64,9 @@ export default async function NoteDetailPage({ params, searchParams }: NotePageP
         titleId="note-heading"
         description="Edit content, manage links, or remove this note."
         actions={
-          <>
-            <Button href="/notes" variant="secondary">
-              All notes
-            </Button>
-            <Button href="/notes/graph" variant="secondary">
-              Graph
-            </Button>
-          </>
+          <Button href="/notes" variant="secondary">
+            All notes
+          </Button>
         }
       />
 

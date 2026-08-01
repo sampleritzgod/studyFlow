@@ -32,14 +32,9 @@ export default async function OutreachPage({ searchParams }: OutreachPageProps) 
         titleId="outreach-heading"
         description="Track people you want to stay in touch with and draft outreach emails."
         actions={
-          <>
-            <Button href="/dashboard" variant="secondary">
-              Dashboard
-            </Button>
-            <Button href="/outreach/new" variant="primary">
-              New contact
-            </Button>
-          </>
+          <Button href="/outreach/new" variant="primary">
+            New contact
+          </Button>
         }
       />
 
