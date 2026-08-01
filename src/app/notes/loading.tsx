@@ -1,7 +1,7 @@
 export default function NotesLoading() {
   return (
     <main className="site-shell" aria-busy="true" aria-label="Loading notes">
-      <section className="dashboard-header">
+      <section className="page-header">
         <div>
           <div className="skeleton skeleton-eyebrow" />
           <div className="skeleton skeleton-title" />

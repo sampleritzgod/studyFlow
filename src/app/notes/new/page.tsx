@@ -14,10 +14,12 @@ export default async function NewNotePage({ searchParams }: NewNotePageProps) {
 
   return (
     <main className="site-shell">
-      <section className="dashboard-header" aria-labelledby="new-note-heading">
+      <section className="page-header" aria-labelledby="new-note-heading">
         <div>
           <p className="eyebrow">Notes</p>
-          <h1 id="new-note-heading">New note</h1>
+          <h1 id="new-note-heading" className="page-title">
+            New note
+          </h1>
           <p className="lede">Start with a title. You can link related notes after saving.</p>
         </div>
         <Link className="button button-secondary" href="/notes">
@@ -26,7 +28,7 @@ export default async function NewNotePage({ searchParams }: NewNotePageProps) {
       </section>
 
       {error ? (
-        <p className="error-text" role="alert">
+        <p className="flash flash-error" role="alert">
           {error}
         </p>
       ) : null}

@@ -34,10 +34,12 @@ export default async function NotesGraphPage() {
 
   return (
     <main className="site-shell">
-      <section className="dashboard-header" aria-labelledby="graph-heading">
+      <section className="page-header" aria-labelledby="graph-heading">
         <div>
           <p className="eyebrow">Notes</p>
-          <h1 id="graph-heading">Note graph</h1>
+          <h1 id="graph-heading" className="page-title">
+            Note graph
+          </h1>
           <p className="lede">A simple view of how your notes connect.</p>
         </div>
         <div className="action-row">

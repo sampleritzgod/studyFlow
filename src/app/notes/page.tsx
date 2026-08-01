@@ -28,10 +28,12 @@ export default async function NotesPage({ searchParams }: NotesPageProps) {
 
   return (
     <main className="site-shell">
-      <section className="dashboard-header" aria-labelledby="notes-heading">
+      <section className="page-header" aria-labelledby="notes-heading">
         <div>
           <p className="eyebrow">Notes</p>
-          <h1 id="notes-heading">Your notes</h1>
+          <h1 id="notes-heading" className="page-title">
+            Your notes
+          </h1>
           <p className="lede">Capture ideas, then link them so related thoughts stay connected.</p>
         </div>
         <div className="action-row">
@@ -48,7 +50,7 @@ export default async function NotesPage({ searchParams }: NotesPageProps) {
       </section>
 
       {error ? (
-        <p className="error-text" role="alert">
+        <p className="flash flash-error" role="alert">
           {error}
         </p>
       ) : null}

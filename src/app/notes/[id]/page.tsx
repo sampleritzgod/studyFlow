@@ -57,10 +57,12 @@ export default async function NoteDetailPage({ params, searchParams }: NotePageP
 
   return (
     <main className="site-shell">
-      <section className="dashboard-header" aria-labelledby="note-heading">
+      <section className="page-header" aria-labelledby="note-heading">
         <div>
           <p className="eyebrow">Notes</p>
-          <h1 id="note-heading">{note.title}</h1>
+          <h1 id="note-heading" className="page-title">
+            {note.title}
+          </h1>
           <p className="lede">Edit content, manage links, or remove this note.</p>
         </div>
         <div className="action-row">
@@ -74,14 +76,26 @@ export default async function NoteDetailPage({ params, searchParams }: NotePageP
       </section>
 
       {error ? (
-        <p className="error-text" role="alert">
+        <p className="flash flash-error" role="alert">
           {error}
         </p>
       ) : null}
-      {saved ? <p className="muted" role="status">Saved.</p> : null}
-      {linked ? <p className="muted" role="status">Link added.</p> : null}
+      {saved ? (
+        <p className="flash flash-success" role="status">
+          Saved.
+        </p>
+      ) : null}
+      {linked ? (
+        <p className="flash flash-success" role="status">
+          Link added.
+        </p>
+      ) : null}
 
-      <form className="note-form" action={updateNoteAction}>
+      <form
+        key={`${note.id}-${note.updatedAt.toISOString()}`}
+        className="note-form"
+        action={updateNoteAction}
+      >
         <input type="hidden" name="noteId" value={note.id} />
         <label className="field">
           <span className="field-label">Title</span>
