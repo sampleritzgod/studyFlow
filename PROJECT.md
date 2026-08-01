@@ -49,7 +49,7 @@ Build **StudyFlow** as a clean, fast study/learning product:
 
 ## Roadmap (phases 0–8)
 
-Current open phase: **7 — Production hardening**.
+Current open phase: **none — roadmap complete except deferred items**.
 
 | Phase | Scope | Status |
 |------|--------|--------|
@@ -60,12 +60,8 @@ Current open phase: **7 — Production hardening**.
 | 4 | Monetization scaffolding — payments / plan gating | **Deferred** — Stripe not India-viable; Razorpay later if reopened |
 | 5 | Career portfolio — milestones, checklists | **Done** — verified 2026-08-01 |
 | 6 | Personal outreach CRM — relationship tracker + drafted emails | **Done** — verified 2026-08-01 |
-| 7 | Production hardening — CI, rate limiting, privacy/ToS, backups, observability | **In progress** |
-| 8 | Peer-matching — only once there's a real user base to match against | Not started |
-| 5 | Career portfolio — milestones, checklists | Not started |
-| 6 | Personal outreach CRM — relationship tracker + AI-drafted emails | Not started |
-| 7 | Production hardening — Secrets Manager, CloudWatch, SES, rate limiting, backups, privacy policy/ToS, CI with tests | Not started |
-| 8 | Peer-matching — only once there's a real user base to match against | Not started |
+| 7 | Production hardening — CI, rate limiting, privacy/ToS, backups, observability | **Done** — verified 2026-08-01 |
+| 8 | Peer-matching — only once there's a real user base to match against | **Blocked** — needs real users; do not start early |
 
 ---
 
@@ -90,7 +86,9 @@ Phase 5 closed (2026-08-01): portfolio milestones + checklists with persisted pr
 
 Phase 6 closed (2026-08-01): contacts + relationship notes + template outreach drafts on Neon.
 
-Phase 7 is not complete until CI, tests, rate limiting, privacy/terms pages, backup notes, and deployment observability basics are in place.
+Phase 7 closed (2026-08-01): GitHub CI; `/privacy` + `/terms`; `/api/health` rate limit; Neon backup + Vercel log notes in PROJECT.md. Live checks: privacy/terms/health 200.
+
+Phase 8 remains **blocked** until there is a real multi-user base to match against. Do not build peer-matching early.
 
 ---
 
@@ -132,6 +130,7 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Changelog
 
+- 2026-08-01: Closed Phase 7 — CI workflow, privacy/terms pages, health rate limit, Neon/Vercel ops notes.
 - 2026-08-01: Closed Phase 6 — Outreach CRM (contacts, notes, template email drafts) on Neon.
 - 2026-08-01: Closed Phase 5 — Career portfolio milestones + checklists with progress on Neon.
 - 2026-08-01: Deferred Phase 4 monetization — removed Stripe; payments/subscriptions skipped (India); Razorpay postponed.
@@ -146,9 +145,9 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Next step
 
-**Phase 7 — Production hardening (in progress):** CI, privacy/terms, API rate limits, Neon backup notes, Vercel observability (no new vendor unless asked).
+No open build phase. Optional later: reopen **Phase 4 with Razorpay**, or **Phase 8 peer-matching** only after real users exist. Meanwhile: push to GitHub so CI runs, and deploy latest `main` to Vercel (run `prisma migrate deploy` on production Neon).
 
-## Ops notes (Phase 7)
+## Ops notes
 
 - **Backups:** Neon provides point-in-time recovery / history on paid plans and branch-based copies. Confirm the production project’s restore window in the Neon console and keep a named production branch.
 - **Observability:** Use Vercel deployment logs and Clerk logs for now. Do not add Sentry/Datadog unless explicitly requested.

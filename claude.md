@@ -44,8 +44,9 @@ SaaS others use later, but built and shipped one working piece at a time.
 - Deploy target: Vercel
 
 ## Roadmap — current phase governs scope
-Current open phase: **7 — Production hardening**. Do not start Phase 8 until Phase 7
-is verified and there is a real user base justifying peer matching.
+Current open phase: **none**. Phases 0–3 and 5–7 are done. Phase 4 (payments)
+is deferred (Razorpay later if reopened). Phase 8 (peer-matching) is **blocked**
+until a real user base exists — do not start it early.
 
 Phase 4 (monetization) is **deferred**: Stripe is not used (India). Revisit with
 Razorpay only when explicitly reopening payments — do not build it by default.

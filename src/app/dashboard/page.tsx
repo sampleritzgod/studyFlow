@@ -68,11 +68,11 @@ export default async function DashboardPage() {
             <span className="status-dot status-dot-idle" aria-hidden="true" />
             <h2>Next step</h2>
           </div>
-          <p className="card-value">Hardening</p>
-          <p className="muted">CI, privacy/terms, and API rate limits. Peer matching waits on real usage.</p>
+          <p className="card-value">Shipped</p>
+          <p className="muted">Core product is live. Payments deferred; peer matching waits on real users.</p>
           <div className="action-row">
-            <Link className="button button-primary" href="/outreach">
-              Outreach
+            <Link className="button button-primary" href="/notes">
+              Notes
             </Link>
             <Link className="button button-secondary" href="/privacy">
               Privacy
