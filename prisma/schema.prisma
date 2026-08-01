@@ -7,7 +7,36 @@ datasource db {
   provider = "postgresql"
 }
 
-// No models yet — Phase 2 (Notes/PKM).
 // Prisma 7: URLs live in prisma.config.ts / .env.local (not here).
 // Runtime: DATABASE_URL (pooled) via src/lib/prisma.ts
 // CLI/migrations: DIRECT_URL via prisma.config.ts
+
+model Note {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  content   String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  outgoingLinks NoteLink[] @relation("NoteOutgoing")
+  incomingLinks NoteLink[] @relation("NoteIncoming")
+
+  @@index([userId])
+}
+
+/// Directed edge; app treats A↔B as bidirectional by querying both directions.
+model NoteLink {
+  id         String   @id @default(cuid())
+  userId     String
+  fromNoteId String
+  toNoteId   String
+  createdAt  DateTime @default(now())
+
+  fromNote Note @relation("NoteOutgoing", fields: [fromNoteId], references: [id], onDelete: Cascade)
+  toNote   Note @relation("NoteIncoming", fields: [toNoteId], references: [id], onDelete: Cascade)
+
+  @@unique([fromNoteId, toNoteId])
+  @@index([userId])
+  @@index([toNoteId])
+}

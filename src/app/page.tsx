@@ -19,8 +19,11 @@ export default async function HomePage() {
 
           {userId ? (
             <div className="action-row" aria-label="Signed in actions">
-              <Link className="button button-primary" href="/dashboard">
-                Go to dashboard
+              <Link className="button button-primary" href="/notes">
+                Open notes
+              </Link>
+              <Link className="button button-secondary" href="/dashboard">
+                Dashboard
               </Link>
               <SignOutButton>
                 <button className="button button-secondary" type="button">

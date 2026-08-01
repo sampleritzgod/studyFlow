@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SignOutButton } from "@clerk/nextjs";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { checkDatabaseHealth } from "@/lib/health";
@@ -67,11 +68,13 @@ export default async function DashboardPage() {
             <span className="status-dot status-dot-idle" aria-hidden="true" />
             <h2>Next step</h2>
           </div>
-          <p className="card-value">Deploy skeleton</p>
+          <p className="card-value">Notes / PKM</p>
           <p className="muted">
-            After this foundation check is green locally, phase 1 is Vercel plus production Neon env
-            vars.
+            Foundation and deploy skeleton are green. Open notes to create, link, and graph ideas.
           </p>
+          <Link className="button button-primary" href="/notes">
+            Open notes
+          </Link>
         </article>
       </section>
     </main>

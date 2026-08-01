@@ -49,13 +49,13 @@ Build **StudyFlow** as a clean, fast study/learning product:
 
 ## Roadmap (phases 0–8)
 
-Current open phase: **0 — Foundation**.
+Current open phase: **2 — Notes/PKM**.
 
 | Phase | Scope | Status |
 |------|--------|--------|
-| 0 | Foundation (auth done; finish Neon + Prisma wiring) | **In progress** — auth on Clerk; Neon/Prisma health check is wired |
-| 1 | Deploy skeleton — bare app live on Vercel + real Neon DB, before any features | Not started |
-| 2 | Notes/PKM — CRUD, bidirectional links, graph view | Not started |
+| 0 | Foundation (auth done; finish Neon + Prisma wiring) | **Done** — verified 2026-08-01 |
+| 1 | Deploy skeleton — bare app live on Vercel + real Neon DB, before any features | **Done** — verified 2026-08-01 |
+| 2 | Notes/PKM — CRUD, bidirectional links, graph view | **In progress** |
 | 3 | Deep work tracker — Pomodoro, time-blocking, focus scorecard | Not started |
 | 4 | Monetization scaffolding — Stripe, pricing, plan gating | Not started |
 | 5 | Career portfolio — milestones, checklists | Not started |
@@ -67,21 +67,16 @@ Current open phase: **0 — Foundation**.
 
 ## Current phase gate
 
-Phase 0 is not complete until the following evidence exists:
+Phase 0 closed (2026-08-01): local generate/typecheck/lint/build; `/api/health` 200; auth redirect.
 
-- Done: `npm run db:generate` passes
-- Done: `npm run typecheck` passes
-- Done: `npm run lint` passes
-- Done: `npm run build` passes
-- Done before URL-normalization cleanup: local `/api/health` returned HTTP 200
-  with `database.ok: true`
-- Pending: repeat local `/api/health` after URL-normalization cleanup
-- Pending: a signed-in `/dashboard` shows Auth protected and Database connected
-- Pending: changelog includes the shipped Phase 0 line
+Phase 1 closed (2026-08-01) — live URL [https://studyflow-kappa-two.vercel.app](https://studyflow-kappa-two.vercel.app):
 
-Latest command evidence was collected on 2026-08-01. Unsigned `/dashboard`
-redirected to `/sign-in?redirect_url=...`, confirming route protection behavior
-without a browser session.
+- `/` → HTTP 200
+- Deployed `/api/health` → HTTP 200 with `database.ok: true`
+- Unsigned `/dashboard` → HTTP 307 to `/sign-in`
+- Signed-in `/dashboard` shows Authentication **Protected** and Database **Connected**
+
+Phase 2 is not complete until a signed-in user can create, read, update, delete, and link notes with persisted data and designed loading, empty, and error states.
 
 ---
 
@@ -93,7 +88,7 @@ without a browser session.
 | Auth | Clerk | Hosted auth UI + Next.js middleware helpers |
 | Database | Neon (managed Postgres) | Simple managed Postgres |
 | ORM | Prisma 7 + `@prisma/adapter-pg` | Client singleton in `src/lib/prisma.ts` |
-| Deploy (planned) | Vercel | Next.js hosting; Amplify removed |
+| Deploy | Vercel | Next.js hosting; Amplify removed |
 
 ---
 
@@ -123,6 +118,8 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Changelog
 
+- 2026-08-01: Closed Phase 1 — skeleton live at studyflow-kappa-two.vercel.app (Clerk + Neon production health green).
+- 2026-08-01: Closed Phase 0 — Prisma/Neon health wiring verified (`db:generate`, typecheck, lint, build, `/api/health` 200).
 - 2026-08-01: Added a phase-0 dashboard foundation check backed by the real Prisma/Neon health query.
 - 2026-07-31: Replaced Cognito/Auth.js with Clerk; removed Amplify config; deploy target is Vercel.
 
@@ -130,4 +127,4 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Next step
 
-Finish **phase 0** (Neon + Prisma wiring), then phase 1 only after that is done.
+**Phase 2 — Notes/PKM (in progress):** verify locally — create/edit/delete/link notes at `/notes`, open `/notes/graph`, confirm data survives refresh. Then run `npx prisma migrate deploy` against **production** Neon before expecting notes on Vercel.
