@@ -49,7 +49,7 @@ Build **StudyFlow** as a clean, fast study/learning product:
 
 ## Roadmap (phases 0–8)
 
-Current open phase: **6 — Personal outreach CRM**.
+Current open phase: **7 — Production hardening**.
 
 | Phase | Scope | Status |
 |------|--------|--------|
@@ -59,7 +59,9 @@ Current open phase: **6 — Personal outreach CRM**.
 | 3 | Deep work tracker — Pomodoro, time-blocking, focus scorecard | **Done** — verified 2026-08-01 |
 | 4 | Monetization scaffolding — payments / plan gating | **Deferred** — Stripe not India-viable; Razorpay later if reopened |
 | 5 | Career portfolio — milestones, checklists | **Done** — verified 2026-08-01 |
-| 6 | Personal outreach CRM — relationship tracker + AI-drafted emails | **In progress** |
+| 6 | Personal outreach CRM — relationship tracker + drafted emails | **Done** — verified 2026-08-01 |
+| 7 | Production hardening — CI, rate limiting, privacy/ToS, backups, observability | **In progress** |
+| 8 | Peer-matching — only once there's a real user base to match against | Not started |
 | 5 | Career portfolio — milestones, checklists | Not started |
 | 6 | Personal outreach CRM — relationship tracker + AI-drafted emails | Not started |
 | 7 | Production hardening — Secrets Manager, CloudWatch, SES, rate limiting, backups, privacy policy/ToS, CI with tests | Not started |
@@ -86,7 +88,9 @@ Phase 4 deferred (2026-08-01): Stripe removed (not applicable for India). Paymen
 
 Phase 5 closed (2026-08-01): portfolio milestones + checklists with persisted progress on Neon.
 
-Phase 6 is not complete until a signed-in user can track contacts and draft outreach emails for their own saved contacts; peer matching remains out of scope.
+Phase 6 closed (2026-08-01): contacts + relationship notes + template outreach drafts on Neon.
+
+Phase 7 is not complete until CI, tests, rate limiting, privacy/terms pages, backup notes, and deployment observability basics are in place.
 
 ---
 
@@ -128,6 +132,7 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Changelog
 
+- 2026-08-01: Closed Phase 6 — Outreach CRM (contacts, notes, template email drafts) on Neon.
 - 2026-08-01: Closed Phase 5 — Career portfolio milestones + checklists with progress on Neon.
 - 2026-08-01: Deferred Phase 4 monetization — removed Stripe; payments/subscriptions skipped (India); Razorpay postponed.
 - 2026-08-01: Closed Phase 3 — Deep work tracker (Pomodoro, time blocks, history, focus scorecard) on Neon.
@@ -141,4 +146,9 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Next step
 
-**Phase 6 — Outreach CRM (in progress):** contacts + relationship notes + email drafts (template-based for now; no new AI vendor).
+**Phase 7 — Production hardening (in progress):** CI, privacy/terms, API rate limits, Neon backup notes, Vercel observability (no new vendor unless asked).
+
+## Ops notes (Phase 7)
+
+- **Backups:** Neon provides point-in-time recovery / history on paid plans and branch-based copies. Confirm the production project’s restore window in the Neon console and keep a named production branch.
+- **Observability:** Use Vercel deployment logs and Clerk logs for now. Do not add Sentry/Datadog unless explicitly requested.

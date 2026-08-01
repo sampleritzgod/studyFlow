@@ -44,11 +44,13 @@ SaaS others use later, but built and shipped one working piece at a time.
 - Deploy target: Vercel
 
 ## Roadmap — current phase governs scope
-Current open phase: **6 — Personal outreach CRM**. Do not start Phase 7 until Phase 6
-is verified with persisted contacts/drafts and PROJECT.md is updated.
+Current open phase: **7 — Production hardening**. Do not start Phase 8 until Phase 7
+is verified and there is a real user base justifying peer matching.
 
 Phase 4 (monetization) is **deferred**: Stripe is not used (India). Revisit with
 Razorpay only when explicitly reopening payments — do not build it by default.
+
+Phase 8 (peer-matching) stays closed until real usage exists — ask before starting.
 
 0. Foundation (auth done; finish Neon + Prisma wiring)
 1. Deploy skeleton — bare app live on Vercel + real Neon DB, before any features

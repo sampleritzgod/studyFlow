@@ -11,7 +11,7 @@ export default async function HomePage() {
     <main className="site-shell">
       <section className="hero-grid" aria-labelledby="home-heading">
         <div className="hero-copy">
-          <p className="eyebrow">Foundation phase</p>
+          <p className="eyebrow">StudyFlow</p>
           <h1 id="home-heading">StudyFlow</h1>
           <p className="lede">
             A focused learning workspace for turning scattered study time into clear progress.
@@ -45,21 +45,27 @@ export default async function HomePage() {
           {userId ? <p className="muted">Signed in as {label}.</p> : null}
         </div>
 
-        <div className="status-panel" aria-label="Current foundation status">
+        <div className="status-panel" aria-label="Product areas">
           <div className="status-row">
             <span className="status-dot status-dot-ok" aria-hidden="true" />
-            <span>Clerk auth routes are wired.</span>
+            <span>Notes, Focus, Portfolio, and Outreach are available.</span>
           </div>
           <div className="status-row">
             <span className="status-dot status-dot-ok" aria-hidden="true" />
-            <span>Prisma 7 is configured for Neon.</span>
+            <span>Auth (Clerk) and database (Neon) are live.</span>
           </div>
           <div className="status-row">
             <span className="status-dot status-dot-idle" aria-hidden="true" />
-            <span>Dashboard verifies the live database connection.</span>
+            <span>Payments deferred; peer matching not started.</span>
           </div>
         </div>
       </section>
+
+      <footer className="site-footer">
+        <Link href="/privacy">Privacy</Link>
+        <Link href="/terms">Terms</Link>
+        <Link href="/pricing">Pricing</Link>
+      </footer>
     </main>
   );
 }
