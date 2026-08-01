@@ -49,7 +49,7 @@ Build **StudyFlow** as a clean, fast study/learning product:
 
 ## Roadmap (phases 0–8)
 
-Current open phase: **4 — Monetization scaffolding**.
+Current open phase: **6 — Personal outreach CRM**.
 
 | Phase | Scope | Status |
 |------|--------|--------|
@@ -57,7 +57,9 @@ Current open phase: **4 — Monetization scaffolding**.
 | 1 | Deploy skeleton — bare app live on Vercel + real Neon DB, before any features | **Done** — verified 2026-08-01 |
 | 2 | Notes/PKM — CRUD, bidirectional links, graph view | **Done** — verified 2026-08-01 |
 | 3 | Deep work tracker — Pomodoro, time-blocking, focus scorecard | **Done** — verified 2026-08-01 |
-| 4 | Monetization scaffolding — Stripe, pricing, plan gating | **In progress** |
+| 4 | Monetization scaffolding — payments / plan gating | **Deferred** — Stripe not India-viable; Razorpay later if reopened |
+| 5 | Career portfolio — milestones, checklists | **Done** — verified 2026-08-01 |
+| 6 | Personal outreach CRM — relationship tracker + AI-drafted emails | **In progress** |
 | 5 | Career portfolio — milestones, checklists | Not started |
 | 6 | Personal outreach CRM — relationship tracker + AI-drafted emails | Not started |
 | 7 | Production hardening — Secrets Manager, CloudWatch, SES, rate limiting, backups, privacy policy/ToS, CI with tests | Not started |
@@ -80,7 +82,11 @@ Phase 2 closed (2026-08-01): signed-in notes CRUD + links + graph against Neon; 
 
 Phase 3 closed (2026-08-01): FocusSession on Neon; `/focus` Pomodoro + blocks + history + 7-day scorecard; helper tests + build gates green.
 
-Phase 4 is not complete until pricing and plan gates exist with Stripe test-mode checkout and webhook verification, without blocking free Notes + Focus.
+Phase 4 deferred (2026-08-01): Stripe removed (not applicable for India). Payments/subscriptions skipped for now; Razorpay only if this phase is reopened later. `/pricing` explains the deferral. Notes + Focus remain free.
+
+Phase 5 closed (2026-08-01): portfolio milestones + checklists with persisted progress on Neon.
+
+Phase 6 is not complete until a signed-in user can track contacts and draft outreach emails for their own saved contacts; peer matching remains out of scope.
 
 ---
 
@@ -122,6 +128,8 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Changelog
 
+- 2026-08-01: Closed Phase 5 — Career portfolio milestones + checklists with progress on Neon.
+- 2026-08-01: Deferred Phase 4 monetization — removed Stripe; payments/subscriptions skipped (India); Razorpay postponed.
 - 2026-08-01: Closed Phase 3 — Deep work tracker (Pomodoro, time blocks, history, focus scorecard) on Neon.
 - 2026-08-01: Closed Phase 2 — Notes/PKM CRUD, bidirectional links, graph view; reusable UI components; helper tests green.
 - 2026-08-01: Closed Phase 1 — skeleton live at studyflow-kappa-two.vercel.app (Clerk + Neon production health green).
@@ -133,4 +141,4 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Next step
 
-**Phase 4 — Monetization (in progress):** add Stripe test keys to `.env.local`, create a Price, run `stripe listen --forward-to localhost:3000/api/stripe/webhook`, then verify checkout → `/pro` unlocks while Notes/Focus stay free.
+**Phase 6 — Outreach CRM (in progress):** contacts + relationship notes + email drafts (template-based for now; no new AI vendor).

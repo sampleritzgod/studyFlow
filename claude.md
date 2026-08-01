@@ -44,14 +44,17 @@ SaaS others use later, but built and shipped one working piece at a time.
 - Deploy target: Vercel
 
 ## Roadmap — current phase governs scope
-Current open phase: **4 — Monetization scaffolding**. Do not start Phase 5 until
-Phase 4 is verified with Stripe test-mode checkout/webhooks and PROJECT.md is updated.
+Current open phase: **6 — Personal outreach CRM**. Do not start Phase 7 until Phase 6
+is verified with persisted contacts/drafts and PROJECT.md is updated.
+
+Phase 4 (monetization) is **deferred**: Stripe is not used (India). Revisit with
+Razorpay only when explicitly reopening payments — do not build it by default.
 
 0. Foundation (auth done; finish Neon + Prisma wiring)
 1. Deploy skeleton — bare app live on Vercel + real Neon DB, before any features
 2. Notes/PKM — CRUD, bidirectional links, graph view
 3. Deep work tracker — Pomodoro, time-blocking, focus scorecard
-4. Monetization scaffolding — Stripe, pricing, plan gating
+4. Monetization scaffolding — deferred (Stripe unsuitable for India; Razorpay later if reopened)
 5. Career portfolio — milestones, checklists
 6. Personal outreach CRM — relationship tracker + AI-drafted emails
    (not peer-matching yet — that needs real users)
@@ -77,8 +80,7 @@ Phase 4 is verified with Stripe test-mode checkout/webhooks and PROJECT.md is up
   link notes with persisted data and designed loading, empty, and error states.
 - Phase 3 is done when a signed-in user can run real focus sessions, see saved
   history, and review a basic focus scorecard from persisted data.
-- Phase 4 is done when pricing and plan gates exist with Stripe test-mode
-  checkout and webhook verification, without blocking the free Phase 2/3 core.
+- Phase 4 is deferred until payments are reopened (prefer Razorpay for India; do not use Stripe).
 - Phase 5 is done when a signed-in user can maintain portfolio milestones and
   checklists with persisted progress.
 - Phase 6 is done when a signed-in user can track contacts and draft outreach

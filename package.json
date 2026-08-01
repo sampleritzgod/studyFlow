@@ -30,8 +30,7 @@
     "next": "^15.5.22",
     "pg": "^8.22.0",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8",
-    "stripe": "^18.5.0"
+    "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.6",

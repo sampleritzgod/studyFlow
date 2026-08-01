@@ -73,16 +73,14 @@ Every phase also inherits the global done bar from `CLAUDE.md`: real Neon data (
 
 ## Phase 4 — Monetization scaffolding
 
-**Scope:** Stripe, pricing, plan gating — without blocking free Phase 2/3 core.
+**Status:** Deferred (2026-08-01). Stripe is not applicable for India. Payments and
+subscriptions are skipped for now. If reopened later, prefer **Razorpay** — ask
+before adding any payment SDK.
 
-**Tasks:**
-1. Stripe test-mode setup + pricing page
-2. Checkout flow for a paid plan
-3. Webhook verification that updates plan state in Neon
-4. Plan gates that restrict paid-only surfaces while leaving Notes + Focus free
-5. Verify with Stripe test events (real webhook payload, not a mock)
+**Scope (when reopened):** Checkout + plan gating without blocking free Notes/Focus.
 
-**Done when:** Pricing and plan gates exist with Stripe test-mode checkout and webhook verification, without blocking the free Phase 2/3 core.
+**Done when (when reopened):** Real provider checkout + webhook-updated plan state in Neon,
+with Notes + Focus still free.
 
 ---
 

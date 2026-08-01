@@ -68,6 +68,9 @@ model FocusSession {
   @@index([userId, status])
 }
 
+// Phase 4 monetization deferred — Plan / UserSubscription kept for a possible
+// Razorpay revisit later. Not used by the app while payments are skipped.
+
 enum Plan {
   FREE
   PRO
@@ -93,4 +96,34 @@ model UserSubscription {
   updatedAt            DateTime           @updatedAt
 
   @@index([stripeCustomerId])
+}
+
+model Milestone {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  description String   @default("")
+  targetDate  DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  items ChecklistItem[]
+
+  @@index([userId, updatedAt])
+}
+
+model ChecklistItem {
+  id          String    @id @default(cuid())
+  userId      String
+  milestoneId String
+  title       String
+  done        Boolean   @default(false)
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  milestone Milestone @relation(fields: [milestoneId], references: [id], onDelete: Cascade)
+
+  @@index([milestoneId, sortOrder])
+  @@index([userId])
 }

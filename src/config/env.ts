@@ -37,26 +37,6 @@ export const env = {
   get directUrl() {
     return requiredUrl("DIRECT_URL", process.env.DIRECT_URL);
   },
-  /** Lazy — only required for Stripe checkout / webhooks (Phase 4). */
-  get stripeSecretKey() {
-    return required("STRIPE_SECRET_KEY", process.env.STRIPE_SECRET_KEY);
-  },
-  get stripeWebhookSecret() {
-    return required("STRIPE_WEBHOOK_SECRET", process.env.STRIPE_WEBHOOK_SECRET);
-  },
-  get stripePriceId() {
-    return required("STRIPE_PRICE_ID", process.env.STRIPE_PRICE_ID);
-  },
-  get stripePublishableKey() {
-    return process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "";
-  },
-  get stripeConfigured() {
-    return Boolean(
-      process.env.STRIPE_SECRET_KEY &&
-        process.env.STRIPE_PRICE_ID &&
-        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
-    );
-  },
   nodeEnv: process.env.NODE_ENV ?? "development",
   isDev: process.env.NODE_ENV !== "production",
   isProd: process.env.NODE_ENV === "production",
