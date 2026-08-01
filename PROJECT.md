@@ -130,6 +130,7 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Changelog
 
+- 2026-08-01: UI/UX redesign pilot — new "Command Deck" dark design system (tokens, buttons, nav, cards) rolled out to Landing + Dashboard; verified at 375px and against typecheck/lint/build. Rest of the pages inherit the shared tokens; bespoke per-page restyling is the fast-follow.
 - 2026-08-01: Closed Phase 7 — CI workflow, privacy/terms pages, health rate limit, Neon/Vercel ops notes.
 - 2026-08-01: Closed Phase 6 — Outreach CRM (contacts, notes, template email drafts) on Neon.
 - 2026-08-01: Closed Phase 5 — Career portfolio milestones + checklists with progress on Neon.
@@ -145,7 +146,7 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Next step
 
-**UI/UX polish (in progress):** global nav, product hub dashboard, calmer home copy. Payments stay out of production.
+**UI/UX polish (in progress):** "Command Deck" dark redesign shipped for Landing + Dashboard. Next: bespoke restyling pass for Notes, Focus, Portfolio, Outreach, Pricing, Legal, and Auth pages using the same tokens. Payments stay out of production.
 
 Optional later: reopen **Phase 4 with Razorpay**, or **Phase 8 peer-matching** only after real users exist. Meanwhile: push polish to GitHub and redeploy Vercel when ready.
 

@@ -1,19 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: light;
-  --color-bg: #f8faf7;
-  --color-surface: #ffffff;
-  --color-text: #13201a;
-  --color-muted: #647067;
-  --color-border: #dfe8e1;
-  --color-primary: #245c45;
-  --color-primary-strong: #184734;
-  --color-primary-soft: #dcefe5;
-  --color-warning: #a45d1b;
-  --color-error: #b42318;
-  --shadow-card: 0 18px 45px rgba(19, 32, 26, 0.08);
-  --radius-sm: 8px;
+  color-scheme: dark;
+  --font-mono:
+    ui-monospace, "SF Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+  --color-bg: #08090d;
+  --color-surface: #12141b;
+  --color-text: #e9ebf1;
+  --color-muted: #8a8fa3;
+  --color-border: #23262f;
+  --color-primary: #b6ff3c;
+  --color-primary-strong: #d4ff7a;
+  --color-primary-soft: rgba(182, 255, 60, 0.12);
+  --color-warning: #ffb84d;
+  --color-error: #ff5c5c;
+  --shadow-card:
+    0 1px 0 rgba(255, 255, 255, 0.03) inset,
+    0 12px 30px rgba(0, 0, 0, 0.45);
+  --radius-sm: 6px;
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -33,8 +37,10 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    linear-gradient(180deg, rgba(220, 239, 229, 0.65), rgba(248, 250, 247, 0) 34rem),
+    radial-gradient(circle at 12% -10%, rgba(182, 255, 60, 0.09), transparent 42%),
+    radial-gradient(circle at 88% 108%, rgba(182, 255, 60, 0.05), transparent 45%),
     var(--color-bg);
+  background-attachment: fixed;
   color: var(--color-text);
   font-family:
     ui-sans-serif,
@@ -57,7 +63,7 @@ body {
 
 .site-header {
   border-bottom: 1px solid var(--color-border);
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(8, 9, 13, 0.82);
   backdrop-filter: blur(10px);
 }
 
@@ -71,10 +77,20 @@ body {
 }
 
 .site-logo {
+  display: flex;
   flex: 0 0 auto;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   text-decoration: none;
+  text-transform: uppercase;
+}
+
+.site-logo::before {
+  content: "> ";
+  color: var(--color-primary);
 }
 
 .site-nav {
@@ -89,9 +105,12 @@ body {
   border-radius: var(--radius-sm);
   padding: var(--space-2) var(--space-3);
   color: var(--color-muted);
-  font-size: 0.92rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
   font-weight: 600;
+  letter-spacing: 0.02em;
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 .site-nav-link:hover,
@@ -101,8 +120,9 @@ body {
 }
 
 .site-nav-link.is-active {
-  color: var(--color-primary-strong);
-  background: var(--color-primary-soft);
+  color: var(--color-bg);
+  background: var(--color-primary);
+  font-weight: 700;
 }
 
 .site-header-actions {
@@ -131,24 +151,36 @@ body {
   box-shadow: var(--shadow-card);
   transition:
     border-color 0.15s ease,
-    transform 0.15s ease;
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .hub-card:hover,
 .hub-card:focus-visible {
   border-color: var(--color-primary);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(182, 255, 60, 0.35),
+    0 16px 34px rgba(0, 0, 0, 0.5);
 }
 
 .hub-card h2 {
   font-size: 1.35rem;
   font-weight: 800;
+  letter-spacing: -0.01em;
 }
 
 .hub-card-cta {
   color: var(--color-primary);
-  font-size: 0.92rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
   font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.hub-card-cta::after {
+  content: " \2192";
 }
 
 a {
@@ -185,10 +217,16 @@ select {
 .eyebrow {
   margin: 0;
   color: var(--color-primary);
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "// ";
+  opacity: 0.55;
 }
 
 h1,
@@ -198,10 +236,10 @@ p {
 }
 
 h1 {
-  max-width: 12ch;
+  max-width: 14ch;
   font-size: clamp(3rem, 9vw, 6.25rem);
   line-height: 0.95;
-  letter-spacing: 0;
+  letter-spacing: -0.02em;
 }
 
 h2 {
@@ -245,7 +283,7 @@ h2 {
 
 .button-primary {
   background: var(--color-primary);
-  color: white;
+  color: #08090d;
 }
 
 .button-primary:hover,
@@ -254,7 +292,7 @@ h2 {
 }
 
 .button-secondary {
-  background: var(--color-surface);
+  background: transparent;
   border-color: var(--color-border);
   color: var(--color-text);
 }
@@ -267,7 +305,7 @@ h2 {
 .button:focus-visible,
 a:focus-visible,
 button:focus-visible {
-  outline: 3px solid rgba(36, 92, 69, 0.28);
+  outline: 3px solid rgba(182, 255, 60, 0.35);
   outline-offset: 3px;
 }
 
@@ -276,9 +314,11 @@ button:focus-visible {
   gap: var(--space-4);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.84);
+  background: rgba(18, 20, 27, 0.72);
   padding: var(--space-6);
   box-shadow: var(--shadow-card);
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
 }
 
 .status-row,
@@ -298,6 +338,7 @@ button:focus-visible {
 
 .status-dot-ok {
   background: var(--color-primary);
+  box-shadow: 0 0 8px rgba(182, 255, 60, 0.7);
 }
 
 .status-dot-idle {
@@ -338,6 +379,7 @@ button:focus-visible {
 }
 
 .card-value {
+  font-family: var(--font-mono);
   font-size: 1.6rem;
   font-weight: 800;
   line-height: 1.15;
@@ -391,7 +433,7 @@ button:focus-visible {
 }
 
 .flash-error {
-  background: rgba(180, 35, 24, 0.08);
+  background: rgba(255, 92, 92, 0.12);
   color: var(--color-error);
 }
 
@@ -503,7 +545,7 @@ button:focus-visible {
 
 .button-danger:hover,
 .button-danger:focus-visible {
-  background: rgba(180, 35, 24, 0.06);
+  background: rgba(255, 92, 92, 0.1);
 }
 
 .graph-panel {
@@ -553,7 +595,7 @@ button:focus-visible {
   background: linear-gradient(
     90deg,
     var(--color-border) 0%,
-    #eef4f0 50%,
+    #2c303c 50%,
     var(--color-border) 100%
   );
   background-size: 200% 100%;
@@ -618,6 +660,7 @@ button:focus-visible {
 
 .focus-clock {
   margin: 0;
+  font-family: var(--font-mono);
   font-size: clamp(3rem, 10vw, 5rem);
   font-weight: 800;
   letter-spacing: 0.04em;
@@ -782,6 +825,12 @@ button:focus-visible {
   .hub-grid,
   .pricing-grid {
     grid-template-columns: 1fr;
+  }
+
+  .hero-grid {
+    min-height: 0;
+    gap: var(--space-8);
+    padding: var(--space-6) 0;
   }
 
   .site-header-inner {
