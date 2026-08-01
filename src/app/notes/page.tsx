@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { Button } from "@/components/button";
+import { EmptyState, StatusMessage } from "@/components/empty-state";
+import { PageHeader } from "@/components/page-header";
 import { auth } from "@clerk/nextjs/server";
 import { listNotes, type NoteSummary } from "@/lib/notes";
 
@@ -28,51 +31,43 @@ export default async function NotesPage({ searchParams }: NotesPageProps) {
 
   return (
     <main className="site-shell">
-      <section className="page-header" aria-labelledby="notes-heading">
-        <div>
-          <p className="eyebrow">Notes</p>
-          <h1 id="notes-heading" className="page-title">
-            Your notes
-          </h1>
-          <p className="lede">Capture ideas, then link them so related thoughts stay connected.</p>
-        </div>
-        <div className="action-row">
-          <Link className="button button-secondary" href="/dashboard">
-            Dashboard
-          </Link>
-          <Link className="button button-secondary" href="/notes/graph">
-            Graph
-          </Link>
-          <Link className="button button-primary" href="/notes/new">
-            New note
-          </Link>
-        </div>
-      </section>
+      <PageHeader
+        eyebrow="Notes"
+        title="Your notes"
+        titleId="notes-heading"
+        description="Capture ideas, then link them so related thoughts stay connected."
+        actions={
+          <>
+            <Button href="/dashboard" variant="secondary">
+              Dashboard
+            </Button>
+            <Button href="/notes/graph" variant="secondary">
+              Graph
+            </Button>
+            <Button href="/notes/new" variant="primary">
+              New note
+            </Button>
+          </>
+        }
+      />
 
-      {error ? (
-        <p className="flash flash-error" role="alert">
-          {error}
-        </p>
-      ) : null}
+      {error ? <StatusMessage tone="error">{error}</StatusMessage> : null}
 
       {loadError ? (
-        <section className="empty-state" aria-live="polite">
-          <h2>Could not load notes</h2>
-          <p className="error-text" role="alert">
-            {loadError}
-          </p>
-          <Link className="button button-secondary" href="/notes">
+        <EmptyState title="Could not load notes" error={loadError}>
+          <Button href="/notes" variant="secondary">
             Try again
-          </Link>
-        </section>
+          </Button>
+        </EmptyState>
       ) : notes.length === 0 ? (
-        <section className="empty-state" aria-live="polite">
-          <h2>No notes yet</h2>
-          <p className="muted">Create your first note to start building your knowledge graph.</p>
-          <Link className="button button-primary" href="/notes/new">
+        <EmptyState
+          title="No notes yet"
+          description="Create your first note to start building your knowledge graph."
+        >
+          <Button href="/notes/new" variant="primary">
             Create a note
-          </Link>
-        </section>
+          </Button>
+        </EmptyState>
       ) : (
         <ul className="notes-list">
           {notes.map((note) => (

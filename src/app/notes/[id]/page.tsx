@@ -1,13 +1,18 @@
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { auth } from "@clerk/nextjs/server";
 import {
   deleteNoteAction,
   linkNoteAction,
   unlinkNoteAction,
   updateNoteAction,
 } from "@/app/notes/actions";
+import { Button } from "@/components/button";
+import { EmptyState, StatusMessage } from "@/components/empty-state";
+import { Field } from "@/components/field";
+import { NoteEditorForm } from "@/components/note-editor-form";
+import { PageHeader } from "@/components/page-header";
 import { getNote, listNotes, type NoteDetail, type NoteSummary } from "@/lib/notes";
+import { auth } from "@clerk/nextjs/server";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
@@ -34,15 +39,11 @@ export default async function NoteDetailPage({ params, searchParams }: NotePageP
   if (loadError) {
     return (
       <main className="site-shell">
-        <section className="empty-state" aria-live="polite">
-          <h1>Could not load note</h1>
-          <p className="error-text" role="alert">
-            {loadError}
-          </p>
-          <Link className="button button-secondary" href="/notes">
+        <EmptyState title="Could not load note" error={loadError}>
+          <Button href="/notes" variant="secondary">
             Back to notes
-          </Link>
-        </section>
+          </Button>
+        </EmptyState>
       </main>
     );
   }
@@ -52,77 +53,40 @@ export default async function NoteDetailPage({ params, searchParams }: NotePageP
   const linkable = allNotes.filter(
     (candidate) =>
       candidate.id !== note.id &&
-      !note.linkedNotes.some((linkedNote: NoteSummary) => linkedNote.id === candidate.id),
+      !note.linkedNotes.some((linkedNote) => linkedNote.id === candidate.id),
   );
 
   return (
     <main className="site-shell">
-      <section className="page-header" aria-labelledby="note-heading">
-        <div>
-          <p className="eyebrow">Notes</p>
-          <h1 id="note-heading" className="page-title">
-            {note.title}
-          </h1>
-          <p className="lede">Edit content, manage links, or remove this note.</p>
-        </div>
-        <div className="action-row">
-          <Link className="button button-secondary" href="/notes">
-            All notes
-          </Link>
-          <Link className="button button-secondary" href="/notes/graph">
-            Graph
-          </Link>
-        </div>
-      </section>
+      <PageHeader
+        eyebrow="Notes"
+        title={note.title}
+        titleId="note-heading"
+        description="Edit content, manage links, or remove this note."
+        actions={
+          <>
+            <Button href="/notes" variant="secondary">
+              All notes
+            </Button>
+            <Button href="/notes/graph" variant="secondary">
+              Graph
+            </Button>
+          </>
+        }
+      />
 
-      {error ? (
-        <p className="flash flash-error" role="alert">
-          {error}
-        </p>
-      ) : null}
-      {saved ? (
-        <p className="flash flash-success" role="status">
-          Saved.
-        </p>
-      ) : null}
-      {linked ? (
-        <p className="flash flash-success" role="status">
-          Link added.
-        </p>
-      ) : null}
+      {error ? <StatusMessage tone="error">{error}</StatusMessage> : null}
+      {saved ? <StatusMessage tone="success">Saved.</StatusMessage> : null}
+      {linked ? <StatusMessage tone="success">Link added.</StatusMessage> : null}
 
-      <form
-        key={`${note.id}-${note.updatedAt.toISOString()}`}
-        className="note-form"
+      <NoteEditorForm
         action={updateNoteAction}
-      >
-        <input type="hidden" name="noteId" value={note.id} />
-        <label className="field">
-          <span className="field-label">Title</span>
-          <input
-            className="field-input"
-            name="title"
-            type="text"
-            required
-            maxLength={200}
-            defaultValue={note.title}
-          />
-        </label>
-        <label className="field">
-          <span className="field-label">Content</span>
-          <textarea
-            className="field-textarea"
-            name="content"
-            rows={14}
-            defaultValue={note.content}
-          />
-        </label>
-        <div className="action-row">
-          <button className="button button-primary" type="submit">
-            Save
-          </button>
-        </div>
-      </form>
+        formKey={`${note.id}-${note.updatedAt.toISOString()}`}
+        noteId={note.id}
+        title={note.title}
+        content={note.content}
+        submitLabel="Save"
+      />
 
       <section className="note-links" aria-labelledby="links-heading">
         <h2 id="links-heading">Linked notes</h2>
@@ -136,9 +100,9 @@ export default async function NoteDetailPage({ params, searchParams }: NotePageP
                 <form action={unlinkNoteAction}>
                   <input type="hidden" name="noteId" value={note.id} />
                   <input type="hidden" name="targetId" value={linkedNote.id} />
-                  <button className="button button-secondary button-compact" type="submit">
+                  <Button type="submit" variant="secondary" size="sm">
                     Unlink
-                  </button>
+                  </Button>
                 </form>
               </li>
             ))}
@@ -150,22 +114,19 @@ export default async function NoteDetailPage({ params, searchParams }: NotePageP
         ) : (
           <form className="link-form" action={linkNoteAction}>
             <input type="hidden" name="noteId" value={note.id} />
-            <label className="field">
-              <span className="field-label">Link to</span>
-              <select className="field-input" name="targetId" required defaultValue="">
-                <option value="" disabled>
-                  Choose a note
+            <Field label="Link to" name="targetId" as="select" required defaultValue="">
+              <option value="" disabled>
+                Choose a note
+              </option>
+              {linkable.map((candidate) => (
+                <option key={candidate.id} value={candidate.id}>
+                  {candidate.title}
                 </option>
-                {linkable.map((candidate) => (
-                  <option key={candidate.id} value={candidate.id}>
-                    {candidate.title}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <button className="button button-secondary" type="submit">
+              ))}
+            </Field>
+            <Button type="submit" variant="secondary">
               Add link
-            </button>
+            </Button>
           </form>
         )}
       </section>
@@ -175,9 +136,9 @@ export default async function NoteDetailPage({ params, searchParams }: NotePageP
         <p className="muted">This permanently removes the note and its links.</p>
         <form action={deleteNoteAction}>
           <input type="hidden" name="noteId" value={note.id} />
-          <button className="button button-danger" type="submit">
+          <Button type="submit" variant="danger">
             Delete note
-          </button>
+          </Button>
         </form>
       </section>
     </main>

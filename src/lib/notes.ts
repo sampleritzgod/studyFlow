@@ -1,4 +1,5 @@
 import { getPrisma } from "@/lib/prisma";
+import { canonicalLinkPair, normalizeNoteTitle } from "@/lib/note-helpers";
 
 export type NoteSummary = {
   id: string;
@@ -63,7 +64,7 @@ export async function createNote(userId: string, title: string, content: string)
   return prisma.note.create({
     data: {
       userId,
-      title: title.trim() || "Untitled",
+      title: normalizeNoteTitle(title),
       content,
     },
   });
@@ -82,7 +83,7 @@ export async function updateNote(
   return prisma.note.update({
     where: { id: noteId },
     data: {
-      title: title.trim() || "Untitled",
+      title: normalizeNoteTitle(title),
       content,
     },
   });
@@ -113,7 +114,7 @@ export async function linkNotes(userId: string, fromNoteId: string, toNoteId: st
     throw new Error("One or both notes were not found.");
   }
 
-  const [a, b] = fromNoteId < toNoteId ? [fromNoteId, toNoteId] : [toNoteId, fromNoteId];
+  const [a, b] = canonicalLinkPair(fromNoteId, toNoteId);
 
   return prisma.noteLink.upsert({
     where: { fromNoteId_toNoteId: { fromNoteId: a, toNoteId: b } },
@@ -124,7 +125,7 @@ export async function linkNotes(userId: string, fromNoteId: string, toNoteId: st
 
 export async function unlinkNotes(userId: string, fromNoteId: string, toNoteId: string) {
   const prisma = getPrisma();
-  const [a, b] = fromNoteId < toNoteId ? [fromNoteId, toNoteId] : [toNoteId, fromNoteId];
+  const [a, b] = canonicalLinkPair(fromNoteId, toNoteId);
 
   await prisma.noteLink.deleteMany({
     where: { userId, fromNoteId: a, toNoteId: b },

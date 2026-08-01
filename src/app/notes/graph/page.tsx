@@ -1,6 +1,9 @@
-import Link from "next/link";
-import { auth } from "@clerk/nextjs/server";
+import { Button } from "@/components/button";
+import { EmptyState } from "@/components/empty-state";
+import { PageHeader } from "@/components/page-header";
 import { getNotesGraph } from "@/lib/notes";
+import { auth } from "@clerk/nextjs/server";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -25,7 +28,8 @@ export default async function NotesGraphPage() {
 
   const positions = new Map<string, { x: number; y: number }>();
   graph.nodes.forEach((node, index) => {
-    const angle = graph.nodes.length === 0 ? 0 : (index / graph.nodes.length) * Math.PI * 2 - Math.PI / 2;
+    const angle =
+      graph.nodes.length === 0 ? 0 : (index / graph.nodes.length) * Math.PI * 2 - Math.PI / 2;
     positions.set(node.id, {
       x: cx + Math.cos(angle) * radius,
       y: cy + Math.sin(angle) * radius,
@@ -34,39 +38,34 @@ export default async function NotesGraphPage() {
 
   return (
     <main className="site-shell">
-      <section className="page-header" aria-labelledby="graph-heading">
-        <div>
-          <p className="eyebrow">Notes</p>
-          <h1 id="graph-heading" className="page-title">
-            Note graph
-          </h1>
-          <p className="lede">A simple view of how your notes connect.</p>
-        </div>
-        <div className="action-row">
-          <Link className="button button-secondary" href="/notes">
-            All notes
-          </Link>
-          <Link className="button button-primary" href="/notes/new">
-            New note
-          </Link>
-        </div>
-      </section>
+      <PageHeader
+        eyebrow="Notes"
+        title="Note graph"
+        titleId="graph-heading"
+        description="A simple view of how your notes connect."
+        actions={
+          <>
+            <Button href="/notes" variant="secondary">
+              All notes
+            </Button>
+            <Button href="/notes/new" variant="primary">
+              New note
+            </Button>
+          </>
+        }
+      />
 
       {loadError ? (
-        <section className="empty-state" aria-live="polite">
-          <h2>Could not load graph</h2>
-          <p className="error-text" role="alert">
-            {loadError}
-          </p>
-        </section>
+        <EmptyState title="Could not load graph" error={loadError} />
       ) : graph.nodes.length === 0 ? (
-        <section className="empty-state" aria-live="polite">
-          <h2>Nothing to graph yet</h2>
-          <p className="muted">Create notes and link them to see relationships here.</p>
-          <Link className="button button-primary" href="/notes/new">
+        <EmptyState
+          title="Nothing to graph yet"
+          description="Create notes and link them to see relationships here."
+        >
+          <Button href="/notes/new" variant="primary">
             Create a note
-          </Link>
-        </section>
+          </Button>
+        </EmptyState>
       ) : (
         <section className="graph-panel" aria-label="Notes relationship graph">
           <svg
@@ -92,8 +91,7 @@ export default async function NotesGraphPage() {
             })}
             {graph.nodes.map((node) => {
               const point = positions.get(node.id)!;
-              const label =
-                node.title.length > 18 ? `${node.title.slice(0, 16)}…` : node.title;
+              const label = node.title.length > 18 ? `${node.title.slice(0, 16)}…` : node.title;
               return (
                 <g key={node.id}>
                   <a href={`/notes/${node.id}`}>

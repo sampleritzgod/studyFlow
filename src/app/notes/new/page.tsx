@@ -1,6 +1,9 @@
-import Link from "next/link";
-import { auth } from "@clerk/nextjs/server";
 import { createNoteAction } from "@/app/notes/actions";
+import { Button } from "@/components/button";
+import { StatusMessage } from "@/components/empty-state";
+import { NoteEditorForm } from "@/components/note-editor-form";
+import { PageHeader } from "@/components/page-header";
+import { auth } from "@clerk/nextjs/server";
 
 export const dynamic = "force-dynamic";
 
@@ -14,43 +17,25 @@ export default async function NewNotePage({ searchParams }: NewNotePageProps) {
 
   return (
     <main className="site-shell">
-      <section className="page-header" aria-labelledby="new-note-heading">
-        <div>
-          <p className="eyebrow">Notes</p>
-          <h1 id="new-note-heading" className="page-title">
-            New note
-          </h1>
-          <p className="lede">Start with a title. You can link related notes after saving.</p>
-        </div>
-        <Link className="button button-secondary" href="/notes">
-          Back to notes
-        </Link>
-      </section>
+      <PageHeader
+        eyebrow="Notes"
+        title="New note"
+        titleId="new-note-heading"
+        description="Start with a title. You can link related notes after saving."
+        actions={
+          <Button href="/notes" variant="secondary">
+            Back to notes
+          </Button>
+        }
+      />
 
-      {error ? (
-        <p className="flash flash-error" role="alert">
-          {error}
-        </p>
-      ) : null}
+      {error ? <StatusMessage tone="error">{error}</StatusMessage> : null}
 
-      <form className="note-form" action={createNoteAction}>
-        <label className="field">
-          <span className="field-label">Title</span>
-          <input className="field-input" name="title" type="text" required maxLength={200} />
-        </label>
-        <label className="field">
-          <span className="field-label">Content</span>
-          <textarea className="field-textarea" name="content" rows={12} />
-        </label>
-        <div className="action-row">
-          <button className="button button-primary" type="submit">
-            Create note
-          </button>
-          <Link className="button button-secondary" href="/notes">
-            Cancel
-          </Link>
-        </div>
-      </form>
+      <NoteEditorForm
+        action={createNoteAction}
+        submitLabel="Create note"
+        cancelHref="/notes"
+      />
     </main>
   );
 }
