@@ -68,14 +68,14 @@ export default async function DashboardPage() {
             <span className="status-dot status-dot-idle" aria-hidden="true" />
             <h2>Next step</h2>
           </div>
-          <p className="card-value">Portfolio</p>
-          <p className="muted">Track career milestones and checklist progress.</p>
+          <p className="card-value">Outreach</p>
+          <p className="muted">Track contacts and draft outreach emails for your own network.</p>
           <div className="action-row">
-            <Link className="button button-primary" href="/portfolio">
-              Open portfolio
+            <Link className="button button-primary" href="/outreach">
+              Open outreach
             </Link>
-            <Link className="button button-secondary" href="/focus">
-              Focus
+            <Link className="button button-secondary" href="/portfolio">
+              Portfolio
             </Link>
           </div>
         </article>
