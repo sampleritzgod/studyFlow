@@ -68,13 +68,16 @@ export default async function DashboardPage() {
             <span className="status-dot status-dot-idle" aria-hidden="true" />
             <h2>Next step</h2>
           </div>
-          <p className="card-value">Notes / PKM</p>
-          <p className="muted">
-            Foundation and deploy skeleton are green. Open notes to create, link, and graph ideas.
-          </p>
-          <Link className="button button-primary" href="/notes">
-            Open notes
-          </Link>
+          <p className="card-value">Deep work</p>
+          <p className="muted">Run Pomodoro or time blocks, then review your focus scorecard.</p>
+          <div className="action-row">
+            <Link className="button button-primary" href="/focus">
+              Open focus
+            </Link>
+            <Link className="button button-secondary" href="/notes">
+              Notes
+            </Link>
+          </div>
         </article>
       </section>
     </main>

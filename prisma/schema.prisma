@@ -40,3 +40,30 @@ model NoteLink {
   @@index([userId])
   @@index([toNoteId])
 }
+
+enum FocusSessionKind {
+  POMODORO
+  BLOCK
+}
+
+enum FocusSessionStatus {
+  RUNNING
+  COMPLETED
+  ABANDONED
+}
+
+model FocusSession {
+  id             String             @id @default(cuid())
+  userId         String
+  kind           FocusSessionKind
+  label          String             @default("")
+  plannedMinutes Int
+  startedAt      DateTime           @default(now())
+  endedAt        DateTime?
+  status         FocusSessionStatus @default(RUNNING)
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  @@index([userId, startedAt])
+  @@index([userId, status])
+}

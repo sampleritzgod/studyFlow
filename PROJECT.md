@@ -49,14 +49,14 @@ Build **StudyFlow** as a clean, fast study/learning product:
 
 ## Roadmap (phases 0–8)
 
-Current open phase: **2 — Notes/PKM**.
+Current open phase: **3 — Deep work tracker**.
 
 | Phase | Scope | Status |
 |------|--------|--------|
 | 0 | Foundation (auth done; finish Neon + Prisma wiring) | **Done** — verified 2026-08-01 |
 | 1 | Deploy skeleton — bare app live on Vercel + real Neon DB, before any features | **Done** — verified 2026-08-01 |
-| 2 | Notes/PKM — CRUD, bidirectional links, graph view | **In progress** |
-| 3 | Deep work tracker — Pomodoro, time-blocking, focus scorecard | Not started |
+| 2 | Notes/PKM — CRUD, bidirectional links, graph view | **Done** — verified 2026-08-01 |
+| 3 | Deep work tracker — Pomodoro, time-blocking, focus scorecard | **In progress** |
 | 4 | Monetization scaffolding — Stripe, pricing, plan gating | Not started |
 | 5 | Career portfolio — milestones, checklists | Not started |
 | 6 | Personal outreach CRM — relationship tracker + AI-drafted emails | Not started |
@@ -76,7 +76,9 @@ Phase 1 closed (2026-08-01) — live URL [https://studyflow-kappa-two.vercel.app
 - Unsigned `/dashboard` → HTTP 307 to `/sign-in`
 - Signed-in `/dashboard` shows Authentication **Protected** and Database **Connected**
 
-Phase 2 is not complete until a signed-in user can create, read, update, delete, and link notes with persisted data and designed loading, empty, and error states.
+Phase 2 closed (2026-08-01): signed-in notes CRUD + links + graph against Neon; components (`Button`, `Field`, `PageHeader`, `EmptyState`); `npm test` / typecheck / lint / build pass.
+
+Phase 3 is not complete until a signed-in user can run real focus sessions, see saved history, and review a basic focus scorecard from persisted data.
 
 ---
 
@@ -118,6 +120,7 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Changelog
 
+- 2026-08-01: Closed Phase 2 — Notes/PKM CRUD, bidirectional links, graph view; reusable UI components; helper tests green.
 - 2026-08-01: Closed Phase 1 — skeleton live at studyflow-kappa-two.vercel.app (Clerk + Neon production health green).
 - 2026-08-01: Closed Phase 0 — Prisma/Neon health wiring verified (`db:generate`, typecheck, lint, build, `/api/health` 200).
 - 2026-08-01: Added a phase-0 dashboard foundation check backed by the real Prisma/Neon health query.
@@ -127,4 +130,4 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Next step
 
-**Phase 2 — Notes/PKM (in progress):** verify locally — create/edit/delete/link notes at `/notes`, open `/notes/graph`, confirm data survives refresh. Then run `npx prisma migrate deploy` against **production** Neon before expecting notes on Vercel.
+**Phase 3 — Deep work tracker:** Pomodoro + session history + basic focus scorecard on real Neon.

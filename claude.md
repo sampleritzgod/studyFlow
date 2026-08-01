@@ -44,8 +44,8 @@ SaaS others use later, but built and shipped one working piece at a time.
 - Deploy target: Vercel
 
 ## Roadmap — current phase governs scope
-Current open phase: **2 — Notes/PKM**. Do not start Phase 3 until Phase 2 is
-verified with real persisted notes and PROJECT.md is updated.
+Current open phase: **3 — Deep work tracker**. Do not start Phase 4 until Phase 3
+is verified with real focus sessions and PROJECT.md is updated.
 
 0. Foundation (auth done; finish Neon + Prisma wiring)
 1. Deploy skeleton — bare app live on Vercel + real Neon DB, before any features
