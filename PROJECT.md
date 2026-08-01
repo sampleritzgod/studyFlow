@@ -49,15 +49,15 @@ Build **StudyFlow** as a clean, fast study/learning product:
 
 ## Roadmap (phases 0–8)
 
-Current open phase: **3 — Deep work tracker**.
+Current open phase: **4 — Monetization scaffolding**.
 
 | Phase | Scope | Status |
 |------|--------|--------|
 | 0 | Foundation (auth done; finish Neon + Prisma wiring) | **Done** — verified 2026-08-01 |
 | 1 | Deploy skeleton — bare app live on Vercel + real Neon DB, before any features | **Done** — verified 2026-08-01 |
 | 2 | Notes/PKM — CRUD, bidirectional links, graph view | **Done** — verified 2026-08-01 |
-| 3 | Deep work tracker — Pomodoro, time-blocking, focus scorecard | **In progress** |
-| 4 | Monetization scaffolding — Stripe, pricing, plan gating | Not started |
+| 3 | Deep work tracker — Pomodoro, time-blocking, focus scorecard | **Done** — verified 2026-08-01 |
+| 4 | Monetization scaffolding — Stripe, pricing, plan gating | **In progress** |
 | 5 | Career portfolio — milestones, checklists | Not started |
 | 6 | Personal outreach CRM — relationship tracker + AI-drafted emails | Not started |
 | 7 | Production hardening — Secrets Manager, CloudWatch, SES, rate limiting, backups, privacy policy/ToS, CI with tests | Not started |
@@ -78,7 +78,9 @@ Phase 1 closed (2026-08-01) — live URL [https://studyflow-kappa-two.vercel.app
 
 Phase 2 closed (2026-08-01): signed-in notes CRUD + links + graph against Neon; components (`Button`, `Field`, `PageHeader`, `EmptyState`); `npm test` / typecheck / lint / build pass.
 
-Phase 3 is not complete until a signed-in user can run real focus sessions, see saved history, and review a basic focus scorecard from persisted data.
+Phase 3 closed (2026-08-01): FocusSession on Neon; `/focus` Pomodoro + blocks + history + 7-day scorecard; helper tests + build gates green.
+
+Phase 4 is not complete until pricing and plan gates exist with Stripe test-mode checkout and webhook verification, without blocking free Notes + Focus.
 
 ---
 
@@ -120,6 +122,7 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Changelog
 
+- 2026-08-01: Closed Phase 3 — Deep work tracker (Pomodoro, time blocks, history, focus scorecard) on Neon.
 - 2026-08-01: Closed Phase 2 — Notes/PKM CRUD, bidirectional links, graph view; reusable UI components; helper tests green.
 - 2026-08-01: Closed Phase 1 — skeleton live at studyflow-kappa-two.vercel.app (Clerk + Neon production health green).
 - 2026-08-01: Closed Phase 0 — Prisma/Neon health wiring verified (`db:generate`, typecheck, lint, build, `/api/health` 200).
@@ -130,4 +133,4 @@ Secrets live only in `.env.local` (gitignored). `.env.example` is the committed 
 
 ## Next step
 
-**Phase 3 — Deep work tracker:** Pomodoro + session history + basic focus scorecard on real Neon.
+**Phase 4 — Monetization (in progress):** add Stripe test keys to `.env.local`, create a Price, run `stripe listen --forward-to localhost:3000/api/stripe/webhook`, then verify checkout → `/pro` unlocks while Notes/Focus stay free.

@@ -68,14 +68,14 @@ export default async function DashboardPage() {
             <span className="status-dot status-dot-idle" aria-hidden="true" />
             <h2>Next step</h2>
           </div>
-          <p className="card-value">Deep work</p>
-          <p className="muted">Run Pomodoro or time blocks, then review your focus scorecard.</p>
+          <p className="card-value">Pricing</p>
+          <p className="muted">Free Notes + Focus. Pro unlocks the gated workspace via Stripe test mode.</p>
           <div className="action-row">
-            <Link className="button button-primary" href="/focus">
-              Open focus
+            <Link className="button button-primary" href="/pricing">
+              View pricing
             </Link>
-            <Link className="button button-secondary" href="/notes">
-              Notes
+            <Link className="button button-secondary" href="/focus">
+              Focus
             </Link>
           </div>
         </article>
