@@ -52,4 +52,24 @@ describe("buildFocusScorecard", () => {
     assert.equal(score.totalFocusMinutes, 25);
     assert.equal(score.completionRate, 50);
   });
+
+  it("credits actual time capped at the planned minutes", () => {
+    const start = new Date("2026-08-01T10:00:00.000Z");
+    const score = buildFocusScorecard([
+      {
+        status: "COMPLETED",
+        plannedMinutes: 25,
+        startedAt: start,
+        endedAt: new Date("2026-08-01T10:00:10.000Z"),
+      },
+      {
+        status: "COMPLETED",
+        plannedMinutes: 25,
+        startedAt: start,
+        endedAt: new Date("2026-08-01T18:00:00.000Z"),
+      },
+    ]);
+
+    assert.equal(score.totalFocusMinutes, 25);
+  });
 });

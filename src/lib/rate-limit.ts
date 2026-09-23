@@ -21,6 +21,13 @@ export function checkRateLimit(
   windowMs: number,
   now = Date.now(),
 ): RateLimitResult {
+  // Drop expired buckets so one-off IPs don't accumulate forever.
+  if (buckets.size > 1000) {
+    for (const [bucketKey, bucket] of buckets) {
+      if (bucket.resetAt <= now) buckets.delete(bucketKey);
+    }
+  }
+
   const existing = buckets.get(key);
 
   if (!existing || existing.resetAt <= now) {

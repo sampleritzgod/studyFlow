@@ -31,7 +31,7 @@ const areas = [
 export default async function DashboardPage() {
   await auth.protect();
   const user = await currentUser();
-  const label = user?.firstName ?? user?.primaryEmailAddress?.emailAddress ?? "there";
+  const label = user?.firstName || user?.primaryEmailAddress?.emailAddress || "there";
   const database = await checkDatabaseHealth();
 
   return (

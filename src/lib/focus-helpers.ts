@@ -34,8 +34,10 @@ export function buildFocusScorecard(sessions: ScorecardInput[]): FocusScorecard 
   for (const session of sessions) {
     if (session.status === "COMPLETED") {
       completedCount += 1;
+      // Credit actual elapsed time, capped at the plan (early finishes count less;
+      // sessions left open past the timer don't inflate the total).
       const end = session.endedAt ?? session.startedAt;
-      totalFocusMinutes += minutesBetween(session.startedAt, end) || session.plannedMinutes;
+      totalFocusMinutes += Math.min(minutesBetween(session.startedAt, end), session.plannedMinutes);
     } else if (session.status === "ABANDONED") {
       abandonedCount += 1;
     }

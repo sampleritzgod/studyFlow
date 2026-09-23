@@ -36,7 +36,7 @@ export function FocusTimer({ sessionId, plannedMinutes, startedAtIso, label }: F
   return (
     <section className="focus-timer" aria-live="polite">
       <p className="eyebrow">{label || "Focus session"}</p>
-      <p className="focus-clock" aria-label="Time remaining">
+      <p className="focus-clock" aria-label="Time remaining" suppressHydrationWarning>
         {done ? "00:00" : formatClock(remainingSeconds)}
       </p>
       <p className="muted">
